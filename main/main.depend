@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1490943851 source:/home/souzooka/side-projects/Raw-Data/main/main.cpp
+	<iostream>
+	<fstream>
+
+1490943818 source:/home/souzooka/side-projects/Raw-Data/main/isFatIncluded.cpp
+	<iostream>
+	<fstream>
+
+1490943955 source:/home/souzooka/side-projects/Raw-Data/main/tests.cpp
+	"isFatIncluded.cpp"
+	<gtest/gtest.h>
+	<fstream>
+
+1490943818 /home/souzooka/side-projects/Raw-Data/main/isFatIncluded.cpp
+	<iostream>
+	<fstream>
+

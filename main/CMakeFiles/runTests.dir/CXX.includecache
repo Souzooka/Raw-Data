@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/souzooka/side-projects/Raw-Data/main/isFatIncluded.cpp
+iostream
+-
+fstream
+-
+
+/home/souzooka/side-projects/Raw-Data/main/tests.cpp
+isFatIncluded.cpp
+/home/souzooka/side-projects/Raw-Data/main/isFatIncluded.cpp
+gtest/gtest.h
+-
+fstream
+-
+
