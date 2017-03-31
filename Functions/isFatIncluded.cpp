@@ -1,7 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <string>
 #include <string.h>
 
 using namespace std;
@@ -9,8 +7,8 @@ using namespace std;
 bool isFatIncluded(std::ifstream &InputFile)
 {
     char buffer[4];
-
     InputFile >> buffer;
+
     if (!strcmp(buffer, "FAT"))
     {
         return true;
@@ -19,5 +17,4 @@ bool isFatIncluded(std::ifstream &InputFile)
     {
         return false;
     }
-    return false;
 }

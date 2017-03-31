@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
-
-bool isFatIncluded(std::ifstream &InputFile);
+#include "helpers.h"
 
 using namespace std;
 
