@@ -11,6 +11,12 @@ iostream
 -
 fstream
 -
+sstream
+-
+string
+-
+string.h
+-
 
 /home/souzooka/side-projects/Raw-Data/main/tests.cpp
 isFatIncluded.cpp
