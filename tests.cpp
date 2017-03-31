@@ -1,9 +1,9 @@
 // tests.cpp
-#include "isFatIncluded.cpp"
+#include "Functions/isFatIncluded.cpp"
 #include <gtest/gtest.h>
 #include <fstream>
 
-TEST(isFatIncluded, General) {
+TEST(isFatIncluded, ShouldVerifyFat) {
     std::string inputFilePath = "test/TEST.DAT";
     std::string decoyFilePath = "test/DECOY.DAT";
 
