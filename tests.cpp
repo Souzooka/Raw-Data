@@ -1,7 +1,9 @@
 // tests.cpp
 #include "Functions/isFatIncluded.cpp"
+#include "Functions/getNumberOfFiles.cpp"
 #include <gtest/gtest.h>
 #include <fstream>
+#include <inttypes.h>
 
 TEST(isFatIncluded, ShouldVerifyFat) {
     std::string inputFilePath = "test/TEST.DAT";
@@ -12,6 +14,13 @@ TEST(isFatIncluded, ShouldVerifyFat) {
 
     ASSERT_EQ(true, isFatIncluded(inputFile));
     ASSERT_EQ(false, isFatIncluded(decoyFile));
+}
+
+TEST(getNumberOfFiles, ShouldCountFiles) {
+    std::string inputFilePath = "test/TEST.DAT";
+    std::ifstream inputFile(inputFilePath.c_str());
+
+    ASSERT_EQ(4, getNumberOfFiles(inputFile));
 }
 
 int main(int argc, char **argv) {
