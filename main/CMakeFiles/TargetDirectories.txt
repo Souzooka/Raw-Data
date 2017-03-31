@@ -1,3 +1,0 @@
-/home/souzooka/side-projects/Raw-Data/main/CMakeFiles/edit_cache.dir
-/home/souzooka/side-projects/Raw-Data/main/CMakeFiles/rebuild_cache.dir
-/home/souzooka/side-projects/Raw-Data/main/CMakeFiles/runTests.dir
