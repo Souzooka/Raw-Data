@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <iostream>
 #include <fstream>
 
 // This function will retrieve the number of files from a .FAT

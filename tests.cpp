@@ -1,6 +1,7 @@
 // tests.cpp
 #include "Functions/isFatIncluded.cpp"
 #include "Functions/getNumberOfFiles.cpp"
+#include "Functions/extractFileNameFromPath.cpp"
 #include <gtest/gtest.h>
 #include <fstream>
 #include <inttypes.h>
@@ -21,6 +22,13 @@ TEST(getNumberOfFiles, ShouldCountFiles) {
     std::ifstream inputFile(inputFilePath.c_str());
 
     ASSERT_EQ(4, getNumberOfFiles(inputFile));
+}
+
+TEST(extractFileNameFromPath, ReturnFileName) {
+    std::string inputFilePath = "test/TEST.DAT";
+    ASSERT_EQ("TEST.DAT", extractFileNameFromPath(inputFilePath));
+    inputFilePath = "@ROOT/AREA_01/SOMEFILENAME.DAT";
+    ASSERT_EQ("SOMEFILENAME.DAT", extractFileNameFromPath(inputFilePath));
 }
 
 int main(int argc, char **argv) {
