@@ -8,6 +8,6 @@ int main()
 {
     std::string inputFilePath = "test/TEST.DAT";
     std::ifstream inputFile(inputFilePath.c_str());
-    extractFileNameFromPath(inputFilePath);
+    getFileNameFromPath(inputFilePath);
     return 0;
 }
