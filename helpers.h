@@ -9,5 +9,6 @@ std::string getFileNameFromPath(std::string inputFilePath);
 uint32_t getFileNameDataStartPtr(std::ifstream &inputFile);
 uint32_t getFileDataStartPtr(std::ifstream &inputFile);
 int* getListOfFileNamePtrs(std::ifstream &inputFile);
+int* getFileLengths(std::ifstream &inputFile);
 
 #endif // HELPERS_H_INCLUDED

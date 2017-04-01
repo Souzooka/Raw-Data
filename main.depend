@@ -24,12 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491026121 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491035482 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<iostream>
 	<fstream>
+	<vector>
 	"helpers.h"
 
-1491032016 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491072830 /home/souzooka/side-projects/Raw-Data/helpers.h
 	<inttypes.h>
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
@@ -54,10 +55,19 @@
 	<cstring>
 	<string>
 
-1491035017 source:/home/souzooka/side-projects/Raw-Data/Functions/getListOfFileNamePtrs.cpp
+1491072680 source:/home/souzooka/side-projects/Raw-Data/Functions/getListOfFileNamePtrs.cpp
 	<inttypes.h>
 	<fstream>
 	<vector>
 	<stdlib.h>
 	<stdio.h>
+	"../helpers.h"
+
+1491072797 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileLengths.cpp
+	<inttypes.h>
+	<fstream>
+	<vector>
+	<stdlib.h>
+	<stdio.h>
+	"../helpers.h"
 
