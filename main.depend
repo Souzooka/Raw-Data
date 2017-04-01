@@ -24,13 +24,14 @@
 	<fstream>
 	<string.h>
 
-1491076626 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491085544 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<iostream>
 	<fstream>
 	<vector>
+	<boost/filesystem.hpp>
 	"helpers.h"
 
-1491076529 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491085236 /home/souzooka/side-projects/Raw-Data/helpers.h
 	<inttypes.h>
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
@@ -87,7 +88,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491077000 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
+1491077505 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
 	<inttypes.h>
 	<iostream>
 	<fstream>
@@ -95,4 +96,18 @@
 	<stdlib.h>
 	<stdio.h>
 	"../helpers.h"
+
+1491085633 source:/home/souzooka/side-projects/Raw-Data/Functions/extractFiles.cpp
+	<inttypes.h>
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	<stdio.h>
+	<boost/filesystem.hpp>
+	"../helpers.h"
+
+1491085166 source:/home/souzooka/side-projects/Raw-Data/Functions/getPath.cpp
+	<libgen.h>
+	<cstring>
+	<string>
 
