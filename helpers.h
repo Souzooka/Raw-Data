@@ -11,5 +11,6 @@ uint32_t getFileDataStartPtr(std::ifstream &inputFile);
 int* getFileNamePtrs(std::ifstream &inputFile);
 int* getFileLengths(std::ifstream &inputFile);
 int* getFileDataPtrs(std::ifstream &inputFile);
+std::string* getFileNames(std::ifstream &inputFile);
 
 #endif // HELPERS_H_INCLUDED

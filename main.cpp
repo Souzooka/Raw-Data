@@ -7,14 +7,14 @@ using namespace std;
 
 int main()
 {
-    std::string inputFilePath = "test/IOP.FAT";
+    std::string inputFilePath = "test/ROOT.FAT";
     std::ifstream inputFile(inputFilePath.c_str());
     getFileNameFromPath(inputFilePath);
     int iterations = getNumberOfFiles(inputFile);
-    int * test = getFileDataPtrs(inputFile);
+    std::string * test = getFileNames(inputFile);
 
     for (int i = 0; i < iterations; ++i) {
-        std::cout << std::hex << test[i] << endl;
+        std::cout << test[i] << endl;
     }
     return 0;
 }

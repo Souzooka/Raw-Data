@@ -7,6 +7,7 @@
 #include "Functions/getFileNamePtrs.cpp"
 #include "Functions/getFileLengths.cpp"
 #include "Functions/getFileDataPtrs.cpp"
+#include "Functions/getFileNames.cpp"
 #include <gtest/gtest.h>
 #include <fstream>
 #include <inttypes.h>
@@ -144,6 +145,35 @@ TEST(getFileDataPtrs, ReturnArrOfDataPtrs) {
     ASSERT_EQ(0x32740, test[10]);
     ASSERT_EQ(0x34C00, test[11]);
     ASSERT_EQ(0x3C5B0,  test[12]);
+}
+
+TEST(getFileNames, ReturnArrOfNames) {
+    std::string inputFilePath = "test/TEST.DAT";
+    std::ifstream inputFile(inputFilePath.c_str());
+    std::string * test = getFileNames(inputFile);
+
+    ASSERT_EQ("IMD\\CHR\\PL01\\P01_KYATATU_WALK_START.IMD", test[0]);
+    ASSERT_EQ("IMD\\CHR\\PL01\\P01_KYATATU_WAIT.IMD", test[1]);
+    ASSERT_EQ("IMD\\CHR\\PL01\\P01_KYATATU_WALK_LP.IMD", test[2]);
+    ASSERT_EQ("IMD\\CHR\\PL01\\P01_KYATATU_WALK_END.IMD", test[3]);
+
+    inputFilePath = "test/IOP.FAT";
+    std::ifstream inputFile2(inputFilePath.c_str());
+    test = getFileNames(inputFile2);
+
+    ASSERT_EQ("IOP\\SIO2MAN.IRX", test[0]);
+    ASSERT_EQ("IOP\\DBCMAN.IRX", test[1]);
+    ASSERT_EQ("IOP\\SIO2D.IRX", test[2]);
+    ASSERT_EQ("IOP\\DS1U.IRX", test[3]);
+    ASSERT_EQ("IOP\\MC2\\MC2_S1.IRX", test[4]);
+    ASSERT_EQ("IOP\\LIBSD.IRX", test[5]);
+    ASSERT_EQ("IOP\\SDRDRV.IRX", test[6]);
+    ASSERT_EQ("IOP\\MODHSYN.IRX", test[7]);
+    ASSERT_EQ("IOP\\MODMIDI.IRX", test[8]);
+    ASSERT_EQ("IOP\\MODSESQ2.IRX", test[9]);
+    ASSERT_EQ("IOP\\MODSEIN.IRX", test[10]);
+    ASSERT_EQ("IOP\\IREMSND2.IRX", test[11]);
+    ASSERT_EQ("IOP\\CDVDSTM.IRX",  test[12]);
 }
 
 int main(int argc, char **argv) {
