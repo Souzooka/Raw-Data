@@ -4,8 +4,9 @@
 #include "Functions/getFileNameFromPath.cpp"
 #include "Functions/getFileNameDataStartPtr.cpp"
 #include "Functions/getFileDataStartPtr.cpp"
-#include "Functions/getListOfFileNamePtrs.cpp"
+#include "Functions/getFileNamePtrs.cpp"
 #include "Functions/getFileLengths.cpp"
+#include "Functions/getFileDataPtrs.cpp"
 #include <gtest/gtest.h>
 #include <fstream>
 #include <inttypes.h>
@@ -61,24 +62,24 @@ TEST(getFileDataStartPtr, ReturnFileDataPtr) {
 TEST(getListOfFileNamePtrs, ReturnFileNamePtrs) {
     std::string inputFilePath = "test/TEST.DAT";
     std::ifstream inputFile(inputFilePath.c_str());
-    int * test = getListOfFileNamePtrs(inputFile);
+    int * test = getFileNamePtrs(inputFile);
 
     ASSERT_EQ(0x130, test[0]);
     ASSERT_EQ(0x158, test[1]);
-    ASSERT_EQ(0x17a, test[2]);
-    ASSERT_EQ(0x19f, test[3]);
+    ASSERT_EQ(0x17A, test[2]);
+    ASSERT_EQ(0x19F, test[3]);
 
     inputFilePath = "test/IOP.FAT";
     std::ifstream inputFile2(inputFilePath.c_str());
-    test = getListOfFileNamePtrs(inputFile2);
+    test = getFileNamePtrs(inputFile2);
 
-    ASSERT_EQ(0x19c, test[0]);
-    ASSERT_EQ(0x1ac, test[1]);
-    ASSERT_EQ(0x1bb, test[2]);
-    ASSERT_EQ(0x1c9, test[3]);
-    ASSERT_EQ(0x1d6, test[4]);
-    ASSERT_EQ(0x1e9, test[5]);
-    ASSERT_EQ(0x1f7, test[6]);
+    ASSERT_EQ(0x19C, test[0]);
+    ASSERT_EQ(0x1AC, test[1]);
+    ASSERT_EQ(0x1BB, test[2]);
+    ASSERT_EQ(0x1C9, test[3]);
+    ASSERT_EQ(0x1D6, test[4]);
+    ASSERT_EQ(0x1E9, test[5]);
+    ASSERT_EQ(0x1F7, test[6]);
     ASSERT_EQ(0x206, test[7]);
     ASSERT_EQ(0x216, test[8]);
     ASSERT_EQ(0x226, test[9]);
@@ -93,27 +94,56 @@ TEST(getFileLengths, ReturnArrOfLengths) {
     int * test = getFileLengths(inputFile);
 
     ASSERT_EQ(0x5200, test[0]);
-    ASSERT_EQ(0x37b0, test[1]);
-    ASSERT_EQ(0x58f0, test[2]);
-    ASSERT_EQ(0x3c80, test[3]);
+    ASSERT_EQ(0x37B0, test[1]);
+    ASSERT_EQ(0x58F0, test[2]);
+    ASSERT_EQ(0x3C80, test[3]);
 
     inputFilePath = "test/IOP.FAT";
     std::ifstream inputFile2(inputFilePath.c_str());
     test = getFileLengths(inputFile2);
 
-    ASSERT_EQ(0x1a00, test[0]);
-    ASSERT_EQ(0x3d25, test[1]);
-    ASSERT_EQ(0x2c19, test[2]);
+    ASSERT_EQ(0x1A00, test[0]);
+    ASSERT_EQ(0x3D25, test[1]);
+    ASSERT_EQ(0x2C19, test[2]);
     ASSERT_EQ(0x2505, test[3]);
-    ASSERT_EQ(0x4ef5, test[4]);
+    ASSERT_EQ(0x4Ef5, test[4]);
     ASSERT_EQ(0x7585, test[5]);
-    ASSERT_EQ(0x23c9, test[6]);
-    ASSERT_EQ(0xf63d, test[7]);
-    ASSERT_EQ(0x55b5, test[8]);
-    ASSERT_EQ(0x4a7d, test[9]);
-    ASSERT_EQ(0x24b1, test[10]);
-    ASSERT_EQ(0x79b0, test[11]);
-    ASSERT_EQ(0x82f1,  test[12]);
+    ASSERT_EQ(0x23C9, test[6]);
+    ASSERT_EQ(0xF63D, test[7]);
+    ASSERT_EQ(0x55B5, test[8]);
+    ASSERT_EQ(0x4A7d, test[9]);
+    ASSERT_EQ(0x24B1, test[10]);
+    ASSERT_EQ(0x79B0, test[11]);
+    ASSERT_EQ(0x82F1,  test[12]);
+}
+
+TEST(getFileDataPtrs, ReturnArrOfDataPtrs) {
+    std::string inputFilePath = "test/TEST.DAT";
+    std::ifstream inputFile(inputFilePath.c_str());
+    int * test = getFileDataPtrs(inputFile);
+
+    ASSERT_EQ(0x1D0, test[0]);
+    ASSERT_EQ(0x5200, test[1]);
+    ASSERT_EQ(0x89B0, test[2]);
+    ASSERT_EQ(0xE2A0, test[3]);
+
+    inputFilePath = "test/IOP.FAT";
+    std::ifstream inputFile2(inputFilePath.c_str());
+    test = getFileDataPtrs(inputFile2);
+
+    ASSERT_EQ(0x270, test[0]);
+    ASSERT_EQ(0x19F1, test[1]);
+    ASSERT_EQ(0x5730, test[2]);
+    ASSERT_EQ(0x8350, test[3]);
+    ASSERT_EQ(0xA860, test[4]);
+    ASSERT_EQ(0xF760, test[5]);
+    ASSERT_EQ(0x16CF0, test[6]);
+    ASSERT_EQ(0x190C0, test[7]);
+    ASSERT_EQ(0x28700, test[8]);
+    ASSERT_EQ(0x2DCC0, test[9]);
+    ASSERT_EQ(0x32740, test[10]);
+    ASSERT_EQ(0x34C00, test[11]);
+    ASSERT_EQ(0x3C5B0,  test[12]);
 }
 
 int main(int argc, char **argv) {

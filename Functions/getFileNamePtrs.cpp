@@ -5,9 +5,9 @@
 #include <stdio.h>
 #include "../helpers.h"
 
-// This function returns a list of data pointers for file names in a .FAT file as an int array.
+// This function returns an array of data pointers for file names in a .FAT file.
 // All strings being pointed at are null-terminated.
-int* getListOfFileNamePtrs(std::ifstream &inputFile)
+int* getFileNamePtrs(std::ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);
     int *arr;

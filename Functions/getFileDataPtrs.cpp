@@ -5,20 +5,26 @@
 #include <stdio.h>
 #include "../helpers.h"
 
-// This function returns an array of file lengths.
-int* getFileLengths(std::ifstream &inputFile)
+// This function returns an array of the location of the start of files.
+int* getFileDataPtrs(std::ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);
     int *arr;
     arr = new int[iterations];
 
     // For RD files
-    inputFile.seekg(0x10C);
+    inputFile.seekg(0xFC);
     inputFile.read((char*)&arr[0], sizeof(int));
 
-    uint32_t currentPtr = 0x110;
+    if (iterations > 1)
+    {
+        inputFile.seekg(0x104);
+        inputFile.read((char*)&arr[1], sizeof(int));
+    }
 
-    for (uint32_t i = 1; i < iterations; ++i)
+    uint32_t currentPtr = 0x118;
+
+    for (uint32_t i = 2; i < iterations; ++i)
     {
         inputFile.seekg(currentPtr);
         inputFile.read((char*)&arr[i], sizeof(int));
