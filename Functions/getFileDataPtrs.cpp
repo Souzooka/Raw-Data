@@ -13,8 +13,9 @@ int* getFileDataPtrs(std::ifstream &inputFile)
     arr = new int[iterations];
 
     // For RD files
-    inputFile.seekg(0xFC);
-    inputFile.read((char*)&arr[0], sizeof(int));
+    //inputFile.seekg(0xFC);
+    //inputFile.read((char*)&arr[0], sizeof(int));
+    arr[0] = 0;
 
     if (iterations > 1)
     {

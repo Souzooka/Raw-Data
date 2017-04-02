@@ -12,6 +12,7 @@ using namespace std;
 bool isFatIncluded(std::ifstream &InputFile)
 {
     char buffer[4];
+    InputFile.seekg(0x0);
     InputFile >> buffer;
 
     return !strcmp(buffer, "FAT");

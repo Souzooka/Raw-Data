@@ -15,19 +15,39 @@
 int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset)
 {
     boost::filesystem::create_directory(outputFolder);
-    boost::filesystem::current_path(outputFolder);
+    boost::filesystem::path canonicalOutputFolder = boost::filesystem::canonical(outputFolder);
+    boost::filesystem::current_path(canonicalOutputFolder);
+    int dataOffset = fileOffset;
     std::string fileName;
-    std::ofstream files;
+    std::string filePath;
+    std::ofstream outputFile;
+
+    if (!isFatIncluded(inputFile))
+    {
+        dataOffset = 0;
+    }
+
+    inputFile.seekg(dataOffset);
 
     for (int i = 0; i < numOfFiles; ++i)
     {
         std::replace( fileNames[i].begin(), fileNames[i].end(), '\\', '/' );
-        std::stringstream a;
-        a << getFileNameFromPath(fileNames[i]);
-        std::cout << getFileNameFromPath(fileNames[i]) << std::endl;
-        fileName = a.str();
-        files.open(fileName.c_str());
-        files.close();
+        fileName = getFileNameFromPath(fileNames[i]);
+        filePath = getPath(fileNames[i]);
+
+        boost::filesystem::create_directories(filePath);
+        boost::filesystem::current_path(filePath);
+
+        outputFile.open(fileName.c_str());
+
+        for (int j = 0; j < fileLengths[i]; j++) {
+            outputFile.put(inputFile.get());
+        }
+        outputFile.close();
+
+        inputFile.seekg(fileLocations[i] + dataOffset);
+
+        boost::filesystem::current_path(canonicalOutputFolder);
     }
     return 0;
 }
