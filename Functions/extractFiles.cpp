@@ -6,6 +6,7 @@
 #include <stdio.h>
 #define BOOST_SYSTEM_NO_DEPRECATED
 #include <boost/filesystem.hpp>
+#include <algorithm>
 #include "../helpers.h"
 
 // This function will extract a .DAT file when given information from its header.
@@ -15,15 +16,17 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
 {
     boost::filesystem::create_directory(outputFolder);
     boost::filesystem::current_path(outputFolder);
-    std::string filename;
+    std::string fileName;
     std::ofstream files;
 
     for (int i = 0; i < numOfFiles; ++i)
     {
+        std::replace( fileNames[i].begin(), fileNames[i].end(), '\\', '/' );
         std::stringstream a;
-        a << fileNames[i];
-        filename = a.str();
-        files.open(filename.c_str());
+        a << getFileNameFromPath(fileNames[i]);
+        std::cout << getFileNameFromPath(fileNames[i]) << std::endl;
+        fileName = a.str();
+        files.open(fileName.c_str());
         files.close();
     }
     return 0;
