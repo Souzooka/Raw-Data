@@ -45,6 +45,7 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
         }
         outputFile.close();
 
+        std::cout << std::hex << fileLocations[i] << std::endl;
         inputFile.seekg(fileLocations[i] + dataOffset);
 
         boost::filesystem::current_path(canonicalOutputFolder);

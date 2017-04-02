@@ -25,7 +25,7 @@ int main()
     int numOfFiles = getNumberOfFiles(inputFile);
     std::string * fileNames = getFileNames(inputFile);
     int * fileLengths = getFileLengths(inputFile);
-    int * fileLocations = getFileLengths(inputFile);
+    int * fileLocations = getFileDataPtrs(inputFile);
     int fileOffset = getFileDataStartPtr(inputFile);
     extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
 
