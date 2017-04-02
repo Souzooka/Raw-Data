@@ -9,11 +9,15 @@ using namespace std;
 // if true, then we know the header is actually inside the DAT file
 // if false, then we need to search the directory for a .FAT file with the same name
 // THIS DOES NOT DO FILE VALIDATION !!
-bool isFatIncluded(std::ifstream &InputFile)
+bool isFatIncluded(std::ifstream &inputFile)
 {
-    char buffer[4];
-    InputFile.seekg(0x0);
-    InputFile >> buffer;
+    // the really big ROOT file caused a segmentation fault, in this function of all things, while other big ones like STR do not,
+    // so here's a lazy but probably safe way of checking if this file is tagged as a FAT file
 
-    return !strcmp(buffer, "FAT");
+    inputFile.seekg(0x0);
+    int someNum;
+    inputFile.read((char*)&someNum, sizeof(uint32_t));
+
+    // this data represents "FAT ";
+    return someNum == 542392646;
 }

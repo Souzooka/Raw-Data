@@ -24,14 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491090570 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491121972 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
-	<vector>
-	<boost/filesystem.hpp>
 	"helpers.h"
 
-1491085236 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491112422 /home/souzooka/side-projects/Raw-Data/helpers.h
 	<inttypes.h>
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
@@ -97,14 +96,14 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491107059 source:/home/souzooka/side-projects/Raw-Data/Functions/extractFiles.cpp
+1491114916 source:/home/souzooka/side-projects/Raw-Data/Functions/extractFiles.cpp
+	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
 	<fstream>
 	<sstream>
 	<stdlib.h>
 	<stdio.h>
-	<boost/filesystem.hpp>
 	<algorithm>
 	"../helpers.h"
 

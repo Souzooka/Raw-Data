@@ -1,11 +1,11 @@
+#define BOOST_SYSTEM_NO_DEPRECATED
+#include <boost/filesystem.hpp>
 #include <inttypes.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <stdlib.h>
 #include <stdio.h>
-#define BOOST_SYSTEM_NO_DEPRECATED
-#include <boost/filesystem.hpp>
 #include <algorithm>
 #include "../helpers.h"
 
@@ -28,7 +28,6 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
     }
 
     inputFile.seekg(dataOffset);
-
     for (int i = 0; i < numOfFiles; ++i)
     {
         std::replace( fileNames[i].begin(), fileNames[i].end(), '\\', '/' );
@@ -45,7 +44,6 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
         }
         outputFile.close();
 
-        std::cout << std::hex << fileLocations[i] << std::endl;
         inputFile.seekg(fileLocations[i] + dataOffset);
 
         boost::filesystem::current_path(canonicalOutputFolder);

@@ -1,8 +1,7 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
 #define BOOST_SYSTEM_NO_DEPRECATED
 #include <boost/filesystem.hpp>
+#include <iostream>
+#include <fstream>
 #include "helpers.h"
 
 using namespace std;
@@ -20,14 +19,33 @@ int main()
 {
     std::string inputFilePath = getFilePathFromUser();
     std::ifstream inputFile(inputFilePath.c_str());
-
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
-    int numOfFiles = getNumberOfFiles(inputFile);
-    std::string * fileNames = getFileNames(inputFile);
-    int * fileLengths = getFileLengths(inputFile);
-    int * fileLocations = getFileDataPtrs(inputFile);
-    int fileOffset = getFileDataStartPtr(inputFile);
-    extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
+
+    if (!isFatIncluded(inputFile))
+    {
+        std::string fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
+        std::ifstream fatFile(fatFilePath.c_str());
+        int numOfFiles = getNumberOfFiles(fatFile);
+        std::string * fileNames = getFileNames(fatFile);
+        int * fileLengths = getFileLengths(fatFile);
+        int * fileLocations = getFileDataPtrs(fatFile);
+        int fileOffset = getFileDataStartPtr(fatFile);
+        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
+    }
+    else
+    {
+        int numOfFiles = getNumberOfFiles(inputFile);
+        std::string * fileNames = getFileNames(inputFile);
+        int * fileLengths = getFileLengths(inputFile);
+        int * fileLocations = getFileDataPtrs(inputFile);
+        int fileOffset = getFileDataStartPtr(inputFile);
+        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
+    }
+
+
+
+
+
 
     return 0;
 }
