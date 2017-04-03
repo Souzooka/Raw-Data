@@ -21,13 +21,6 @@ int main()
     std::ifstream inputFile(inputFilePath.c_str());
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
 
-    std::cout << isRDFile(inputFile);
-}
-
-/*     std::string inputFilePath = getFilePathFromUser();
-    std::ifstream inputFile(inputFilePath.c_str());
-    std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
-
     if (!isFatIncluded(inputFile))
     {
         std::string fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
@@ -55,4 +48,5 @@ int main()
 
 
     return 0;
-    */
+}
+
