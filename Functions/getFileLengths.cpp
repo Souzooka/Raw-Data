@@ -1,5 +1,6 @@
 #include <inttypes.h>
 #include <fstream>
+#include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
@@ -14,16 +15,24 @@ int* getFileLengths(std::ifstream &inputFile)
 
     if (isRDFile(inputFile))
     {
-        inputFile.seekg(0x10C);
-        inputFile.read((char*)&arr[0], sizeof(int));
-
-        uint32_t currentPtr = 0x110;
-
-        for (uint32_t i = 1; i < iterations; ++i)
+        if (iterations == 1)
         {
-            inputFile.seekg(currentPtr);
-            inputFile.read((char*)&arr[i], sizeof(int));
-            currentPtr += 0xC;
+            inputFile.seekg(0x104);
+            inputFile.read((char*)&arr[0], sizeof(int));
+        }
+        else
+        {
+            inputFile.seekg(0x10C);
+            inputFile.read((char*)&arr[0], sizeof(int));
+
+            uint32_t currentPtr = 0x110;
+
+            for (uint32_t i = 1; i < iterations; ++i)
+            {
+                inputFile.seekg(currentPtr);
+                inputFile.read((char*)&arr[i], sizeof(int));
+                currentPtr += 0xC;
+            }
         }
     }
     else
@@ -40,7 +49,6 @@ int* getFileLengths(std::ifstream &inputFile)
             currentPtr += 0x10;
         }
     }
-
 
     return arr;
 }

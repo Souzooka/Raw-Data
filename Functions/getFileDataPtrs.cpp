@@ -23,15 +23,15 @@ int* getFileDataPtrs(std::ifstream &inputFile)
         {
             inputFile.seekg(0x104);
             inputFile.read((char*)&arr[1], sizeof(int));
-        }
 
-        uint32_t currentPtr = 0x118;
+            uint32_t currentPtr = 0x118;
 
-        for (uint32_t i = 2; i < iterations; ++i)
-        {
-            inputFile.seekg(currentPtr);
-            inputFile.read((char*)&arr[i], sizeof(int));
-            currentPtr += 0xC;
+            for (uint32_t i = 2; i < iterations; ++i)
+            {
+                inputFile.seekg(currentPtr);
+                inputFile.read((char*)&arr[i], sizeof(int));
+                currentPtr += 0xC;
+            }
         }
     }
     else

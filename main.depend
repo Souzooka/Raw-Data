@@ -24,7 +24,7 @@
 	<fstream>
 	<string.h>
 
-1491258090 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491262417 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
@@ -70,7 +70,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491258233 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
+1491262554 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
 	<inttypes.h>
 	<fstream>
 	<iostream>
@@ -79,8 +79,9 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491257832 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNamePtrs.cpp
+1491258306 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNamePtrs.cpp
 	<inttypes.h>
+	<iostream>
 	<fstream>
 	<vector>
 	<stdlib.h>
