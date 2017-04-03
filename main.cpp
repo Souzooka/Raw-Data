@@ -39,6 +39,12 @@ int main()
         int * fileLengths = getFileLengths(inputFile);
         int * fileLocations = getFileDataPtrs(inputFile);
         int fileOffset = getFileDataStartPtr(inputFile);
+
+        for (int i = 0; i < 13; ++i)
+        {
+            std::cout << fileNames[i] << endl;
+        }
+
         extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
     }
 

@@ -14,22 +14,36 @@ int* getFileDataPtrs(std::ifstream &inputFile)
     arr = new int[iterations];
 
     // For RD files
-    inputFile.seekg(0x100);
-    inputFile.read((char*)&arr[0], sizeof(int));
-
-    if (iterations > 1)
+    if (isRDFile(inputFile))
     {
-        inputFile.seekg(0x104);
-        inputFile.read((char*)&arr[1], sizeof(int));
+        inputFile.seekg(0x100);
+        inputFile.read((char*)&arr[0], sizeof(int));
+
+        if (iterations > 1)
+        {
+            inputFile.seekg(0x104);
+            inputFile.read((char*)&arr[1], sizeof(int));
+        }
+
+        uint32_t currentPtr = 0x118;
+
+        for (uint32_t i = 2; i < iterations; ++i)
+        {
+            inputFile.seekg(currentPtr);
+            inputFile.read((char*)&arr[i], sizeof(int));
+            currentPtr += 0xC;
+        }
     }
-
-    uint32_t currentPtr = 0x118;
-
-    for (uint32_t i = 2; i < iterations; ++i)
+    else
     {
-        inputFile.seekg(currentPtr);
-        inputFile.read((char*)&arr[i], sizeof(int));
-        currentPtr += 0xC;
+        uint32_t currentPtr = 0x100;
+
+        for (uint32_t i = 0; i < iterations; ++i)
+        {
+            inputFile.seekg(currentPtr);
+            inputFile.read((char*)&arr[i], sizeof(int));
+            currentPtr += 0x10;
+        }
     }
 
     return arr;
