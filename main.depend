@@ -24,14 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491121972 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491254428 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
 	"helpers.h"
 
-1491112422 /home/souzooka/side-projects/Raw-Data/helpers.h
-	<inttypes.h>
+1491254501 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -71,7 +70,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491252716 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
+1491253025 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
 	<inttypes.h>
 	<fstream>
 	<iostream>
@@ -88,7 +87,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491252779 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
+1491253021 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
 	<inttypes.h>
 	<iostream>
 	<fstream>
@@ -112,4 +111,8 @@
 	<libgen.h>
 	<cstring>
 	<string>
+
+1491254469 source:/home/souzooka/side-projects/Raw-Data/Functions/isRDFile.cpp
+	<fstream>
+	<string.h>
 

@@ -1,8 +1,6 @@
 #ifndef HELPERS_H_INCLUDED
 #define HELPERS_H_INCLUDED
 
-#include <inttypes.h>
-
 bool isFatIncluded(std::ifstream &InputFile);
 uint32_t getNumberOfFiles(std::ifstream &InputFile);
 std::string getFileNameFromPath(std::string inputFilePath);
@@ -14,5 +12,6 @@ int* getFileLengths(std::ifstream &inputFile);
 int* getFileDataPtrs(std::ifstream &inputFile);
 std::string* getFileNames(std::ifstream &inputFile);
 int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset);
+bool isRDFile(std::ifstream &inputFile);
 
 #endif // HELPERS_H_INCLUDED
