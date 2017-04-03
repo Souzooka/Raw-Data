@@ -1,5 +1,6 @@
 #include <inttypes.h>
 #include <fstream>
+#include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
@@ -13,9 +14,8 @@ int* getFileDataPtrs(std::ifstream &inputFile)
     arr = new int[iterations];
 
     // For RD files
-    //inputFile.seekg(0xFC);
-    //inputFile.read((char*)&arr[0], sizeof(int));
-    arr[0] = 0;
+    inputFile.seekg(0x100);
+    inputFile.read((char*)&arr[0], sizeof(int));
 
     if (iterations > 1)
     {

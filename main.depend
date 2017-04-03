@@ -20,7 +20,7 @@
 	<sstream>
 	<string>
 
-1491105686 source:/home/souzooka/side-projects/Raw-Data/Functions/isFatIncluded.cpp
+1491123124 source:/home/souzooka/side-projects/Raw-Data/Functions/isFatIncluded.cpp
 	<fstream>
 	<string.h>
 
@@ -71,9 +71,10 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491105072 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
+1491252716 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileDataPtrs.cpp
 	<inttypes.h>
 	<fstream>
+	<iostream>
 	<vector>
 	<stdlib.h>
 	<stdio.h>
@@ -87,7 +88,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491077505 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
+1491252779 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileNames.cpp
 	<inttypes.h>
 	<iostream>
 	<fstream>
@@ -96,7 +97,7 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491114916 source:/home/souzooka/side-projects/Raw-Data/Functions/extractFiles.cpp
+1491252965 source:/home/souzooka/side-projects/Raw-Data/Functions/extractFiles.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>

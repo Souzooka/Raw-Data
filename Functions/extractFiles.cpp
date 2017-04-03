@@ -30,6 +30,8 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
     inputFile.seekg(dataOffset);
     for (int i = 0; i < numOfFiles; ++i)
     {
+        inputFile.seekg(fileLocations[i] + dataOffset);
+
         std::replace( fileNames[i].begin(), fileNames[i].end(), '\\', '/' );
         fileName = getFileNameFromPath(fileNames[i]);
         filePath = getPath(fileNames[i]);
@@ -43,8 +45,6 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
             outputFile.put(inputFile.get());
         }
         outputFile.close();
-
-        inputFile.seekg(fileLocations[i] + dataOffset);
 
         boost::filesystem::current_path(canonicalOutputFolder);
     }
