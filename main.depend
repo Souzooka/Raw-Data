@@ -24,13 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491269560 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491279795 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
 	"helpers.h"
 
-1491271660 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491280564 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -147,7 +147,7 @@
 	<algorithm>
 	"../../helpers.h"
 
-1491271712 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileDataPtrs.cpp
+1491272652 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileDataPtrs.cpp
 	<inttypes.h>
 	<fstream>
 	<iostream>
@@ -156,11 +156,11 @@
 	<stdio.h>
 	"../../helpers.h"
 
-1491015430 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileDataStartPtr.cpp
+1491272738 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileDataStartPtr.cpp
 	<inttypes.h>
 	<fstream>
 
-1491271715 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileLengths.cpp
+1491272764 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileLengths.cpp
 	<inttypes.h>
 	<fstream>
 	<iostream>
@@ -169,11 +169,11 @@
 	<stdio.h>
 	"../../helpers.h"
 
-1491015380 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileNameDataStartPtr.cpp
+1491272622 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileNameDataStartPtr.cpp
 	<inttypes.h>
 	<fstream>
 
-1491271719 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileNamePtrs.cpp
+1491272771 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/getFileNamePtrs.cpp
 	<inttypes.h>
 	<iostream>
 	<fstream>
@@ -204,24 +204,27 @@
 	<fstream>
 	<string.h>
 
-1491014028 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getFileNameFromPath.cpp
+1491272818 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getFileNameFromPath.cpp
 	<libgen.h>
 	<cstring>
 	<string>
 
-1491085166 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getPath.cpp
+1491272842 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getPath.cpp
 	<libgen.h>
 	<cstring>
 	<string>
 
-1491269518 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFilesInDirectory.cpp
+1491280200 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFilesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
 	<dirent.h>
-	<boost/filesystem.hpp>
+	"boost/filesystem/operations.hpp"
+	"boost/filesystem/path.hpp"
+	"boost/progress.hpp"
+	"../../helpers.h"
 
-1491271745 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildEmptyFile.cpp
+1491272880 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildEmptyFile.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -230,5 +233,16 @@
 	<stdlib.h>
 	<stdio.h>
 	<algorithm>
+	"../../helpers.h"
+
+1491280656 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
+	<stdio.h>
+	<sys/types.h>
+	<string>
+	<dirent.h>
+	<iostream>
+	"boost/filesystem/operations.hpp"
+	"boost/filesystem/path.hpp"
+	"boost/progress.hpp"
 	"../../helpers.h"
 
