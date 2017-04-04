@@ -18,15 +18,18 @@ string* getFileNamesInDirectory(string filePath)
     string* fileNames = new std::string[getFilesInDirectory(filePath)];
     recursive_directory_iterator end_itr;
     int incrementer = 0;
+    // thanks for working for 2 hours and then suddenly complaining compiler, ffs
+    int limit = getFilesInDirectory(filePath);
 
     // cycle through the directory
     for (recursive_directory_iterator itr(p); itr != end_itr; ++itr)
     {
         // If it's not a directory, list it. If you want to list directories too, just remove this check.
-        if (is_regular_file(itr->path())) {
+        if (is_regular_file(itr->path()) && limit > incrementer) {
             // assign current file name to current_file and echo it out to the console.
+            cout << itr->path().string() << endl;
             fileNames[incrementer] = itr->path().string();
-            cout << fileNames[incrementer] << endl;
+
         }
         ++incrementer;
     }

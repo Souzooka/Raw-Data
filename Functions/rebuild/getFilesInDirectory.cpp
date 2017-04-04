@@ -17,7 +17,12 @@ int getFilesInDirectory (std::string filePath)
     int numFiles = 0;
     for(boost::filesystem::recursive_directory_iterator it(filePath); it != boost::filesystem::recursive_directory_iterator(); ++it)
     {
-        numFiles++;
+
+        if (is_regular_file(it->path()))
+        {
+            numFiles++;
+        }
+
     }
 
     return numFiles;
