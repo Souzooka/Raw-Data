@@ -7,6 +7,7 @@
 #include "../../helpers.h"
 
 // This function returns an array of file lengths.
+// probably needs a refactor so this function isn't junk
 int* getFileLengths(std::ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);

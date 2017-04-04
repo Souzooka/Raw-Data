@@ -8,6 +8,7 @@
 
 // This function returns an array of data pointers for file names in a .FAT file.
 // All strings being pointed at are null-terminated.
+// probably needs a refactor so this function isn't junk
 int* getFileNamePtrs(std::ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);

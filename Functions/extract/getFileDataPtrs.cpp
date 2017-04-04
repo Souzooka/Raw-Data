@@ -7,6 +7,7 @@
 #include "../../helpers.h"
 
 // This function returns an array of the location of the start of files.
+// probably needs a refactor so this function isn't junk
 int* getFileDataPtrs(std::ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);
@@ -34,6 +35,7 @@ int* getFileDataPtrs(std::ifstream &inputFile)
             }
         }
     }
+    // for generic files
     else
     {
         uint32_t currentPtr = 0x100;

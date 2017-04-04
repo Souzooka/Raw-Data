@@ -12,6 +12,7 @@
 
 // rebuilding a .DAT file with no files contained inside it, how boring
 // does the game even use these files
+// use this when rebuilding an empty directory
 int rebuildEmptyFile(std::string fileName)
 {
     std::ofstream outputFile;
