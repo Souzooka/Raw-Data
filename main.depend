@@ -24,13 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491262417 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491264550 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
 	"helpers.h"
 
-1491254501 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491264520 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -62,9 +62,10 @@
 	<stdio.h>
 	"../helpers.h"
 
-1491258227 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileLengths.cpp
+1491263125 source:/home/souzooka/side-projects/Raw-Data/Functions/getFileLengths.cpp
 	<inttypes.h>
 	<fstream>
+	<iostream>
 	<vector>
 	<stdlib.h>
 	<stdio.h>
@@ -116,4 +117,15 @@
 1491254628 source:/home/souzooka/side-projects/Raw-Data/Functions/isRDFile.cpp
 	<fstream>
 	<string.h>
+
+1491264469 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuildEmptyFile.cpp
+	<boost/filesystem.hpp>
+	<inttypes.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+	<stdio.h>
+	<algorithm>
+	"../helpers.h"
 
