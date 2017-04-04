@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../helpers.h"
+#include "../../helpers.h"
 
 // This function returns an array of strings of file names in a .FAT file.
 // All strings are null-terminated.

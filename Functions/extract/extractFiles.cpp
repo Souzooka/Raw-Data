@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <algorithm>
-#include "../helpers.h"
+#include "../../helpers.h"
 
 // This function will extract a .DAT file when given information from its header.
 // NOTE: We should move all of these parameters *into* extractFiles,

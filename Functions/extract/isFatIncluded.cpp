@@ -1,5 +1,6 @@
 #include <fstream>
 #include <string.h>
+#include <inttypes.h>
 
 using namespace std;
 

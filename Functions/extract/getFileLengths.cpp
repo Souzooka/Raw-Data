@@ -4,7 +4,7 @@
 #include <vector>
 #include <stdlib.h>
 #include <stdio.h>
-#include "../helpers.h"
+#include "../../helpers.h"
 
 // This function returns an array of file lengths.
 int* getFileLengths(std::ifstream &inputFile)
