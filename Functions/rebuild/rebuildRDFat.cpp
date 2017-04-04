@@ -18,6 +18,7 @@ int rebuildRDFat(std::string outputFolder)
     ofstream outputFile;
     int numofFiles = getFilesInDirectory(outputFolder);
     string* fileNames = getFileNamesInDirectory(outputFolder);
+    int* fileSizes = getFileSizesInDirectory(outputFolder);
     current_path(outputFolder);
     current_path("../");
 
@@ -91,7 +92,19 @@ int rebuildRDFat(std::string outputFolder)
     outputFile.seekp(0xFC);
     outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
 
+    currentPtr = 0x100;
+    int fileSizeTotal = 0x0;
 
+    for (int i = 0; i < numofFiles; ++i)
+    {
+        outputFile.seekp(currentPtr);
+        outputFile.write(reinterpret_cast<const char *>(&fileSizeTotal), sizeof(fileSizeTotal));
+        currentPtr += 0x4;
+        outputFile.seekp(currentPtr);
+        outputFile.write(reinterpret_cast<const char *>(&fileSizes[i]), sizeof(fileSizes[i]));
+        fileSizeTotal += fileSizes[i];
+        currentPtr += 0x8;
+    }
 
     return 0;
 }
