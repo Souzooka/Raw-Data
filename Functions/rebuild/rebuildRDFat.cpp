@@ -63,10 +63,19 @@ int rebuildRDFat(std::string outputFolder)
     int nameStart = outputFile.tellp();
     outputFile.seekp(0xF8);
     outputFile.write(reinterpret_cast<const char *>(&nameStart), sizeof(nameStart));
+
     outputFile.seekp(nameStart);
+
+    int currentPtr = 0x108;
+    int endOfFile = 0;
 
     for (int i = 0; i < numofFiles; ++i)
     {
+        endOfFile = outputFile.tellp();
+        outputFile.seekp(currentPtr);
+        currentPtr += 0xC;
+        outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
+        outputFile.seekp(endOfFile);
         outputFile << fileNames[i];
         outputFile.write(smallemptybuffer, 1);
     }
