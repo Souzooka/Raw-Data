@@ -24,13 +24,26 @@
 	<fstream>
 	<string.h>
 
-1491290332 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491271745 D
+
+1491291213 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
 	"helpers.h"
 
-1491284753 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491289981 ent of d3c91d3... get file names in a directory
+	<boost/filesystem.hpp>
+	<iostream>
+	<fstream>
+	"helpers.h"
+	<stdio.h>
+	<sys/types.h>
+	<string>
+	<dirent.h>
+	<boost/filesystem.hpp>
+
+1491292951 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -214,11 +227,12 @@
 	<cstring>
 	<string>
 
-1491290237 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFilesInDirectory.cpp
+1491290827 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFilesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
 	<dirent.h>
+	<iostream>
 	"boost/filesystem/operations.hpp"
 	"boost/filesystem/path.hpp"
 	"boost/progress.hpp"
@@ -235,7 +249,7 @@
 	<algorithm>
 	"../../helpers.h"
 
-1491290197 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
+1491293349 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
@@ -258,7 +272,7 @@
 	"boost/progress.hpp"
 	"../../helpers.h"
 
-1491289981 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
+1491294092 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -268,4 +282,6 @@
 	<stdio.h>
 	<algorithm>
 	"../../helpers.h"
+
+1491289981 pers.h"
 

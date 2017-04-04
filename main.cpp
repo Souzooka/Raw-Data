@@ -17,7 +17,7 @@ std::string getFilePathFromUser()
 
 int main()
 {
-    getFileNamesInDirectory("test/@TEST.DAT");
+    rebuildRDFat("test/@TEST.DAT");
     std::string inputFilePath = getFilePathFromUser();
     std::ifstream inputFile(inputFilePath.c_str());
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);

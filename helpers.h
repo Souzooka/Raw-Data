@@ -24,4 +24,5 @@ std::string* getFileNamesInDirectory(std::string filePath);
 int* getFileSizesInDirectory(std::string filePath);
 int rebuildRDFat(std::string outputFolder);
 
+
 #endif // HELPERS_H_INCLUDED

@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <string>
 #include <dirent.h>
+#include <iostream>
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 #include "boost/filesystem/operations.hpp"
 #include "boost/filesystem/path.hpp"
@@ -17,13 +18,10 @@ int getFilesInDirectory (std::string filePath)
     int numFiles = 0;
     for(boost::filesystem::recursive_directory_iterator it(filePath); it != boost::filesystem::recursive_directory_iterator(); ++it)
     {
-
         if (is_regular_file(it->path()))
         {
             numFiles++;
         }
-
     }
-
     return numFiles;
 }
