@@ -14,5 +14,6 @@ std::string* getFileNames(std::ifstream &inputFile);
 int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset);
 bool isRDFile(std::ifstream &inputFile);
 int rebuildEmptyFile(std::string fileName);
+int getFilesInDirectory (std::string filePath);
 
 #endif // HELPERS_H_INCLUDED

@@ -17,6 +17,7 @@ std::string getFilePathFromUser()
 
 int main()
 {
+    std::cout << getFilesInDirectory("test");
     std::string inputFilePath = getFilePathFromUser();
     std::ifstream inputFile(inputFilePath.c_str());
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);

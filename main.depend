@@ -30,7 +30,7 @@
 	<fstream>
 	"helpers.h"
 
-1491264520 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491269570 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -118,7 +118,7 @@
 	<fstream>
 	<string.h>
 
-1491264469 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuildEmptyFile.cpp
+1491264732 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuildEmptyFile.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -128,4 +128,11 @@
 	<stdio.h>
 	<algorithm>
 	"../helpers.h"
+
+1491269518 source:/home/souzooka/side-projects/Raw-Data/Functions/getFilesInDirectory.cpp
+	<stdio.h>
+	<sys/types.h>
+	<string>
+	<dirent.h>
+	<boost/filesystem.hpp>
 
