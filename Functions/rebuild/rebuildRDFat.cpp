@@ -76,7 +76,7 @@ int rebuildRDFat(std::string outputFolder)
         currentPtr += 0xC;
         outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
         outputFile.seekp(endOfFile);
-        outputFile << fileNames[i];
+        outputFile << cleanFileString(outputFolder, fileNames[i]);
         outputFile.write(smallemptybuffer, 1);
     }
 
@@ -86,6 +86,10 @@ int rebuildRDFat(std::string outputFolder)
     {
         outputFile.write(smallemptybuffer, 1);
     }
+
+    endOfFile = outputFile.tellp();
+    outputFile.seekp(0xFC);
+    outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
 
 
 

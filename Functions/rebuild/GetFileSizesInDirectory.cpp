@@ -15,7 +15,6 @@ using namespace boost::filesystem;
 
 int* getFileSizesInDirectory(string filePath)
 {
-    path p (filePath);
     int* fileSizes = new int[getFilesInDirectory(filePath)];
     string* fileNames = getFileNamesInDirectory(filePath);
     recursive_directory_iterator end_itr;

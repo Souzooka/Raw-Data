@@ -26,7 +26,7 @@
 
 1491271745 D
 
-1491333265 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491335603 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
@@ -43,7 +43,7 @@
 	<dirent.h>
 	<boost/filesystem.hpp>
 
-1491292951 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491335286 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -249,7 +249,7 @@
 	<algorithm>
 	"../../helpers.h"
 
-1491293349 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
+1491335490 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
@@ -260,7 +260,7 @@
 	"boost/progress.hpp"
 	"../../helpers.h"
 
-1491281884 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/GetFileSizesInDirectory.cpp
+1491334281 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/GetFileSizesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
@@ -272,7 +272,7 @@
 	"boost/progress.hpp"
 	"../../helpers.h"
 
-1491295332 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
+1491335514 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -284,4 +284,11 @@
 	"../../helpers.h"
 
 1491289981 pers.h"
+
+1491335632 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/cleanFileString.cpp
+	<string>
+	<stdio.h>
+	<iostream>
+	<sys/types.h>
+	<algorithm>
 

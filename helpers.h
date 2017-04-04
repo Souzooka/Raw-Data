@@ -4,6 +4,7 @@
 // helper functions
 std::string getFileNameFromPath(std::string inputFilePath);
 std::string getPath(std::string inputFilePath);
+std::string cleanFileString(std::string filePath, std::string fileName);
 
 // for extracting archives
 bool isFatIncluded(std::ifstream &InputFile);

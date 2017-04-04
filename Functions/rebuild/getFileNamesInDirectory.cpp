@@ -15,21 +15,18 @@ using namespace boost::filesystem;
 string* getFileNamesInDirectory(string filePath)
 {
     path p (filePath);
-    string* fileNames = new std::string[getFilesInDirectory(current_path().string())];
+    string* fileNames = new std::string[getFilesInDirectory(filePath)];
     recursive_directory_iterator end_itr;
-
     int incrementer = 0;
 
-     // cycle through the directory
+    // cycle through the directory
     for (recursive_directory_iterator itr(p); itr != end_itr; ++itr)
     {
         // If it's not a directory, list it. If you want to list directories too, just remove this check.
-        if (is_regular_file(itr->path()))
-        {
+        if (is_regular_file(itr->path())) {
             // assign current file name to current_file and echo it out to the console.
-            fileNames[incrementer] = itr->path().string().substr(filePath.length() + 1);
-            std::replace( fileNames[incrementer].begin(), fileNames[incrementer].end(), '/', '\\' );
-            incrementer++;
+            fileNames[incrementer] = itr->path().string();
+            ++incrementer;
         }
     }
 
