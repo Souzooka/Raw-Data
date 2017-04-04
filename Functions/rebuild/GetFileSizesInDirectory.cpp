@@ -23,7 +23,6 @@ int* getFileSizesInDirectory(string filePath)
     for (int i = 0; i < getFilesInDirectory(filePath); ++i)
     {
         fileSizes[i] = file_size(fileNames[i]);
-        cout << fileSizes[i] << endl;
     }
 
     return fileSizes;

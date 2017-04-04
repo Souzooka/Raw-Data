@@ -15,6 +15,7 @@ using namespace boost::filesystem;
 int rebuildRDFat(std::string outputFolder)
 {
     path p(outputFolder);
+    path returnPath(current_path());
     ofstream outputFile;
     int numofFiles = getFilesInDirectory(outputFolder);
     string* fileNames = getFileNamesInDirectory(outputFolder);
@@ -106,5 +107,7 @@ int rebuildRDFat(std::string outputFolder)
         currentPtr += 0x8;
     }
 
+    outputFile.close();
+    current_path(returnPath);
     return 0;
 }
