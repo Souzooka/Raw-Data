@@ -17,6 +17,7 @@ std::string getFilePathFromUser()
 
 int main()
 {
+    getFileSizesInDirectory("test");
     std::string inputFilePath = getFilePathFromUser();
     std::ifstream inputFile(inputFilePath.c_str());
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);

@@ -24,13 +24,13 @@
 	<fstream>
 	<string.h>
 
-1491279795 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491281834 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
 	"helpers.h"
 
-1491280564 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491281851 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -235,11 +235,23 @@
 	<algorithm>
 	"../../helpers.h"
 
-1491280656 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
+1491281912 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/getFileNamesInDirectory.cpp
 	<stdio.h>
 	<sys/types.h>
 	<string>
 	<dirent.h>
+	<iostream>
+	"boost/filesystem/operations.hpp"
+	"boost/filesystem/path.hpp"
+	"boost/progress.hpp"
+	"../../helpers.h"
+
+1491281884 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/GetFileSizesInDirectory.cpp
+	<stdio.h>
+	<sys/types.h>
+	<string>
+	<dirent.h>
+	<inttypes.h>
 	<iostream>
 	"boost/filesystem/operations.hpp"
 	"boost/filesystem/path.hpp"

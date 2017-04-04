@@ -21,5 +21,6 @@ bool isRDFile(std::ifstream &inputFile);
 int rebuildEmptyFile(std::string fileName);
 int getFilesInDirectory (std::string filePath);
 std::string* getFileNamesInDirectory(std::string filePath);
+int* getFileSizesInDirectory(std::string filePath);
 
 #endif // HELPERS_H_INCLUDED
