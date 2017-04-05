@@ -26,17 +26,18 @@ int createDAT(std::string outputFolder)
     current_path("../");
     outputFile.open(file.c_str());
     current_path(returnPath);
+    int roundedFileSizeBuffer;
+    char smallemptybuffer[] = { 0x00 };
 
     for (int i = 0; i < numofFiles; ++i)
     {
         std::cout << "Rebuilding file " << i << "\n";
         inputFile.open(fileNames[i].c_str());
-        if (fileSizes[i] % 0x10 != 0x0)
-        {
-            fileSizes[i] += ((fileSizes[i] % 16) + 16) - (fileSizes[i] % 16 * 2);
-        }
         for (int j = 0; j < fileSizes[i]; j++) {
             outputFile.put(inputFile.get());
+        }
+        while (outputFile.tellp() % 0x800 != 0x0) {
+            outputFile.write(smallemptybuffer, 1);
         }
         inputFile.close();
     }

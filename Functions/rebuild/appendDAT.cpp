@@ -29,17 +29,22 @@ int appendDAT(std::string outputFolder)
     outputFile.open(newFile.c_str(), std::ofstream::out | std::ofstream::app);
     outputFile.seekp(0, std::ios_base::end);
     current_path(returnPath);
+    char smallemptybuffer[] = { 0x00 };
+    int roundedFileSizeBuffer;
 
     for (int i = 0; i < numofFiles; ++i)
     {
         std::cout << "Rebuilding file " << i << "\n";
         inputFile.open(fileNames[i].c_str());
-        if (fileSizes[i] % 0x10 != 0x0)
+        if (fileSizes[i] % 0x800 != 0x0)
         {
-            fileSizes[i] += ((fileSizes[i] % 16) + 16) - (fileSizes[i] % 16 * 2);
+            roundedFileSizeBuffer = ((fileSizes[i] % 0x800) + 0x800) - (fileSizes[i] % 0x800 * 2);
         }
         for (int j = 0; j < fileSizes[i]; j++) {
             outputFile.put(inputFile.get());
+        }
+        for (int j = 0; j < roundedFileSizeBuffer; ++j) {
+            outputFile.write(smallemptybuffer, 1);
         }
         inputFile.close();
     }
