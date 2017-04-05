@@ -118,6 +118,10 @@ int rebuildRDFat(std::string outputFolder, bool internal)
         outputFile.write(reinterpret_cast<const char *>(&fileSizeTotal), sizeof(fileSizeTotal));
         currentPtr += 0x4;
         outputFile.seekp(currentPtr);
+        if (fileSizes[i] % 0x10 != 0x0)
+        {
+            fileSizes[i] += ((fileSizes[i] % 16) + 16) - (fileSizes[i] % 16 * 2);
+        }
         outputFile.write(reinterpret_cast<const char *>(&fileSizes[i]), sizeof(fileSizes[i]));
         fileSizeTotal += fileSizes[i];
         currentPtr += 0x8;

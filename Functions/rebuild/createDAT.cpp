@@ -31,6 +31,10 @@ int createDAT(std::string outputFolder)
     {
         std::cout << "Rebuilding file " << i << "\n";
         inputFile.open(fileNames[i].c_str());
+        if (fileSizes[i] % 0x10 != 0x0)
+        {
+            fileSizes[i] += ((fileSizes[i] % 16) + 16) - (fileSizes[i] % 16 * 2);
+        }
         for (int j = 0; j < fileSizes[i]; j++) {
             outputFile.put(inputFile.get());
         }
