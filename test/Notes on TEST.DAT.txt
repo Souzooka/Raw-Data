@@ -33,10 +33,10 @@ Here's some specific notes about the header of the file chosen for testing, for 
 0x14h:   ?? -- seems to be 0x02 for DAT files which contain a FAT and 0x00 otherwise
 0xF4h:   ?? -- seems to always be 0x0001
 0xF8h:   Pointer for start of filename data (this 0xF8H seems to be consistent in every .FAT)
-0xFCh:   Pointer for 1st file and/or file offset
-0x100h:  Intentionally left blank?
+0xFCh:   file offset
+0x100h:  Pointer for 1st file
 0x104h:  Pointer for 2nd file (remember there is an offset, e.g. 0052 becomes 5200 + 1D0 = 53D0)
-0x108h:  Pointer for 1st file and/or file offset
+0x108h:  file offset
 0x10Ch:  1st file length
 0x110h:  2nd file length
 0x114h:  Pointer for 2nd filename

@@ -26,7 +26,7 @@
 
 1491271745 D
 
-1491339050 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491371659 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
@@ -43,7 +43,7 @@
 	<dirent.h>
 	<boost/filesystem.hpp>
 
-1491338060 /home/souzooka/side-projects/Raw-Data/helpers.h
+1491371647 /home/souzooka/side-projects/Raw-Data/helpers.h
 
 1491003294 source:/home/souzooka/side-projects/Raw-Data/Functions/getNumberOfFiles.cpp
 	<inttypes.h>
@@ -149,7 +149,7 @@
 	<dirent.h>
 	<boost/filesystem.hpp>
 
-1491271707 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/extractFiles.cpp
+1491371660 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/extractFiles.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -208,10 +208,12 @@
 	<inttypes.h>
 	<fstream>
 
-1491271738 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/isFatIncluded.cpp
+1491371850 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/isFatIncluded.cpp
 	<fstream>
 	<string.h>
 	<inttypes.h>
+	<iostream>
+	"../../helpers.h"
 
 1491254628 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/isRDFile.cpp
 	<fstream>
@@ -272,7 +274,7 @@
 	"boost/progress.hpp"
 	"../../helpers.h"
 
-1491338940 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
+1491368850 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/rebuildRDFat.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>
@@ -292,7 +294,18 @@
 	<sys/types.h>
 	<algorithm>
 
-1491338536 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/appendDAT.cpp
+1491366273 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/appendDAT.cpp
+	<boost/filesystem.hpp>
+	<inttypes.h>
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+	<stdio.h>
+	<algorithm>
+	"../../helpers.h"
+
+1491368893 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/createDAT.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<iostream>

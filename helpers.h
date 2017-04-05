@@ -7,7 +7,7 @@ std::string getPath(std::string inputFilePath);
 std::string cleanFileString(std::string filePath, std::string fileName);
 
 // for extracting archives
-bool isFatIncluded(std::ifstream &InputFile);
+bool isFatIncluded(std::string inputFilePath);
 uint32_t getNumberOfFiles(std::ifstream &InputFile);
 uint32_t getFileNameDataStartPtr(std::ifstream &inputFile);
 uint32_t getFileDataStartPtr(std::ifstream &inputFile);
@@ -15,7 +15,7 @@ int* getFileNamePtrs(std::ifstream &inputFile);
 int* getFileLengths(std::ifstream &inputFile);
 int* getFileDataPtrs(std::ifstream &inputFile);
 std::string* getFileNames(std::ifstream &inputFile);
-int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset);
+int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset, std::string inputFilePath);
 bool isRDFile(std::ifstream &inputFile);
 
 // for rebuilding archives
@@ -23,8 +23,9 @@ int rebuildEmptyFile(std::string fileName);
 int getFilesInDirectory (std::string filePath);
 std::string* getFileNamesInDirectory(std::string filePath);
 int* getFileSizesInDirectory(std::string filePath);
-int rebuildRDFat(std::string outputFolder);
+int rebuildRDFat(std::string outputFolder, bool internal);
 int appendDAT(std::string outputFolder);
+int createDAT(std::string outputFolder);
 
 
 #endif // HELPERS_H_INCLUDED

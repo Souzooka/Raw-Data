@@ -18,13 +18,12 @@ std::string getFilePathFromUser()
 int main()
 {
 
-    rebuildRDFat("test/@TEST.DAT");
-    appendDAT("test/@TEST.DAT");
+    rebuildRDFat("test/@ROOT.DAT", false);
     std::string inputFilePath = getFilePathFromUser();
     std::ifstream inputFile(inputFilePath.c_str());
     std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
 
-    if (!isFatIncluded(inputFile))
+    if (!isFatIncluded(inputFilePath))
     {
         std::string fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
         std::ifstream fatFile(fatFilePath.c_str());
@@ -33,7 +32,7 @@ int main()
         int * fileLengths = getFileLengths(fatFile);
         int * fileLocations = getFileDataPtrs(fatFile);
         int fileOffset = getFileDataStartPtr(fatFile);
-        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
+        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
     }
     else
     {
@@ -42,7 +41,7 @@ int main()
         int * fileLengths = getFileLengths(inputFile);
         int * fileLocations = getFileDataPtrs(inputFile);
         int fileOffset = getFileDataStartPtr(inputFile);
-        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset);
+        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
     }
 
 

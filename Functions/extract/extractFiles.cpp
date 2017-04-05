@@ -12,7 +12,7 @@
 // This function will extract a .DAT file when given information from its header.
 // NOTE: We should move all of these parameters *into* extractFiles,
 // we need a helper function that'll locate a .FAT with the same name in this directory
-int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset)
+int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset, std::string inputFilePath)
 {
     boost::filesystem::create_directory(outputFolder);
     boost::filesystem::path canonicalOutputFolder = boost::filesystem::canonical(outputFolder);
@@ -22,7 +22,7 @@ int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFi
     std::string filePath;
     std::ofstream outputFile;
 
-    if (!isFatIncluded(inputFile))
+    if (!isFatIncluded(inputFilePath))
     {
         dataOffset = 0;
     }

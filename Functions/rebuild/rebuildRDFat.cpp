@@ -12,7 +12,7 @@
 using namespace std;
 using namespace boost::filesystem;
 
-int rebuildRDFat(std::string outputFolder)
+int rebuildRDFat(std::string outputFolder, bool internal)
 {
     path p(outputFolder);
     path returnPath(current_path());
@@ -22,6 +22,8 @@ int rebuildRDFat(std::string outputFolder)
     int* fileSizes = getFileSizesInDirectory(outputFolder);
     current_path(outputFolder);
     current_path("../");
+
+    std::cout << "Rebuilding header\n";
 
     char fatbuffer[] = { 0x46, 0x41, 0x54, 0x20 };
     char emptybuffer[] = { 0x00, 0x00, 0x00, 0x00 };
@@ -38,7 +40,16 @@ int rebuildRDFat(std::string outputFolder)
         outputFile.write(emptybuffer, 4);
     }
 
-    outputFile.write(externalfatbuffer, 4);
+    // if external fat write this otherwise write emptybuffer
+    if (!internal)
+    {
+        outputFile.write(externalfatbuffer, 4);
+    }
+    else
+    {
+        outputFile.write(emptybuffer, 4);
+    }
+
 
     for (int i = 0; i < 55; ++i)
     {
@@ -89,9 +100,14 @@ int rebuildRDFat(std::string outputFolder)
         outputFile.write(smallemptybuffer, 1);
     }
 
-    endOfFile = outputFile.tellp();
-    outputFile.seekp(0xFC);
-    outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
+    // if internal do this
+    if (!internal)
+    {
+        endOfFile = outputFile.tellp();
+        outputFile.seekp(0xFC);
+        outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
+    }
+
 
     currentPtr = 0x100;
     int fileSizeTotal = 0x0;
@@ -109,5 +125,14 @@ int rebuildRDFat(std::string outputFolder)
 
     outputFile.close();
     current_path(returnPath);
+
+    if (internal)
+    {
+        appendDAT(outputFolder);
+    }
+    else
+    {
+        createDAT(outputFolder);
+    }
     return 0;
 }

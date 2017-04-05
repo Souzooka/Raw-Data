@@ -12,22 +12,19 @@
 using namespace std;
 using namespace boost::filesystem;
 
-int appendDAT(std::string outputFolder)
+int createDAT(std::string outputFolder)
 {
     ofstream outputFile;
     ifstream inputFile;
     path p(outputFolder);
     path returnPath(current_path());
     string* fileNames = getFileNamesInDirectory(outputFolder);
-    string file = p.filename().string().substr(1, p.filename().string().length() - 5) + ".FAT";
-    string newFile = p.filename().string().substr(1, p.filename().string().length() - 5) + ".DAT";
+    string file = p.filename().string().substr(1, p.filename().string().length() - 5) + ".DAT";
     int numofFiles = getFilesInDirectory(outputFolder);
     int * fileSizes = getFileSizesInDirectory(outputFolder);
     current_path(outputFolder);
     current_path("../");
-    rename( file.c_str(), newFile.c_str() );
-    outputFile.open(newFile.c_str(), std::ofstream::out | std::ofstream::app);
-    outputFile.seekp(0, std::ios_base::end);
+    outputFile.open(file.c_str());
     current_path(returnPath);
 
     for (int i = 0; i < numofFiles; ++i)
