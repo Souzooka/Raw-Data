@@ -101,7 +101,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     }
 
     // if internal do this
-    if (!internal)
+    if (internal)
     {
         endOfFile = outputFile.tellp();
         outputFile.seekp(0xFC);
