@@ -16,24 +16,13 @@ int* getFileLengths(std::ifstream &inputFile)
 
     if (isRDFile(inputFile))
     {
-        if (iterations == 1)
-        {
-            inputFile.seekg(0x104);
-            inputFile.read((char*)&arr[0], sizeof(int));
-        }
-        else
-        {
-            inputFile.seekg(0x10C);
-            inputFile.read((char*)&arr[0], sizeof(int));
+        uint32_t currentPtr = 0x104;
 
-            uint32_t currentPtr = 0x110;
-
-            for (uint32_t i = 1; i < iterations; ++i)
-            {
-                inputFile.seekg(currentPtr);
-                inputFile.read((char*)&arr[i], sizeof(int));
-                currentPtr += 0xC;
-            }
+        for (uint32_t i = 0; i < iterations; ++i)
+        {
+            inputFile.seekg(currentPtr);
+            inputFile.read((char*)&arr[i], sizeof(int));
+            currentPtr += 0xC;
         }
     }
     else

@@ -18,12 +18,9 @@ int* getFileNamePtrs(std::ifstream &inputFile)
     // For RD files
     if (isRDFile(inputFile))
     {
-        inputFile.seekg(0xF8);
-        inputFile.read((char*)&arr[0], sizeof(int));
+        uint32_t currentPtr = 0x108;
 
-        uint32_t currentPtr = 0x114;
-
-        for (uint32_t i = 1; i < iterations; ++i)
+        for (uint32_t i = 0; i < iterations; ++i)
         {
             inputFile.seekg(currentPtr);
             inputFile.read((char*)&arr[i], sizeof(int));
