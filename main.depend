@@ -26,7 +26,7 @@
 
 1491271745 D
 
-1491458196 source:/home/souzooka/side-projects/Raw-Data/main.cpp
+1491461085 source:/home/souzooka/side-projects/Raw-Data/main.cpp
 	<boost/filesystem.hpp>
 	<iostream>
 	<fstream>
@@ -149,7 +149,7 @@
 	<dirent.h>
 	<boost/filesystem.hpp>
 
-1491458933 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/extractFiles.cpp
+1491461080 source:/home/souzooka/side-projects/Raw-Data/Functions/extract/extractFiles.cpp
 	<boost/filesystem.hpp>
 	<inttypes.h>
 	<fstream>
@@ -196,12 +196,11 @@
 	<fstream>
 	<string.h>
 
-1491272818 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getFileNameFromPath.cpp
-	<libgen.h>
+1491461358 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getFileNameFromPath.cpp
 	<cstring>
 	<string>
 
-1491272842 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getPath.cpp
+1491461412 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/getPath.cpp
 	<libgen.h>
 	<cstring>
 	<string>
@@ -264,11 +263,8 @@
 
 1491289981 pers.h"
 
-1491335632 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/cleanFileString.cpp
+1491461128 source:/home/souzooka/side-projects/Raw-Data/Functions/helpers/cleanFileString.cpp
 	<string>
-	<stdio.h>
-	<iostream>
-	<sys/types.h>
 	<algorithm>
 
 1491448358 source:/home/souzooka/side-projects/Raw-Data/Functions/rebuild/appendDAT.cpp

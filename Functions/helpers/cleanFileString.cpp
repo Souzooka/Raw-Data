@@ -1,12 +1,12 @@
 #include <string>
-#include <stdio.h>
-#include <iostream>
-#include <sys/types.h>
 #include <algorithm>
 
-std::string cleanFileString(std::string fileName, std::string filePath)
+using namespace std;
+
+// This function replaces a directory path string with a string acceptable for .FAT Headers.
+string cleanFileString(string fileName, string filePath)
 {
     filePath = filePath.substr(fileName.length() + 1);
-    std::replace( filePath.begin(), filePath.end(), '/', '\\' );
+    replace( filePath.begin(), filePath.end(), '/', '\\' );
     return filePath;
 }

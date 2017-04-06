@@ -13,7 +13,7 @@ using namespace std;
 // NOTE: Most of the numbers in this project are uint_32 because due to the C++11 standard, minimum size of int is 2 bytes, which is too small for our tasks.
 // Also, none of these pointers will be negative, of course, meaning uints are better for the needs of this project.
 
-//tentative, will probably get refactored into fancy console arguments or a GUI and also be capable of fancy recursion options
+//tentative, will probably get refactored into fancy console arguments or a GUI and also be capable of fancy looping options
 string getFilePathFromUser()
 {
     cout << "Enter the filepath of a .DAT file to extract" << endl;
@@ -46,7 +46,7 @@ int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 
 int main()
 {
-    // rebuildRDFat("test/@ROOT.DAT", false);
+    rebuildRDFat("test/@ROOT.DAT", false);
     string inputFilePath = getFilePathFromUser();
 
     (isFatIncluded(inputFilePath)) ? gatherFileInfoAndCallExtract(inputFilePath, true) : gatherFileInfoAndCallExtract(inputFilePath, false);

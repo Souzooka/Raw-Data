@@ -30,7 +30,7 @@ int extractFiles(ifstream &inputFile, string outputFolder, uint32_t numOfFiles, 
     inputFile.seekg(fileOffset);
 
     // for each file, create and move into each new directory and create a new file with the data.
-    for (uint32_t i = 0; i < numOfFiles; ++i)
+    for (int i = 0; i < numOfFiles; ++i)
     {
         inputFile.seekg(fileLocations[i] + fileOffset);
 
@@ -43,7 +43,7 @@ int extractFiles(ifstream &inputFile, string outputFolder, uint32_t numOfFiles, 
 
         outputFile.open(fileName.c_str());
 
-        for (uint32_t j = 0; j < fileLengths[i]; j++) {
+        for (int j = 0; j < fileLengths[i]; j++) {
             outputFile.put(inputFile.get());
         }
         outputFile.close();
