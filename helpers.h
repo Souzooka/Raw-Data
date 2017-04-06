@@ -19,12 +19,12 @@ bool isRDFile(std::ifstream &inputFile);
 
 // for rebuilding archives
 int rebuildEmptyFile(std::string fileName);
-int getFilesInDirectory (std::string filePath);
+uint32_t getFilesInDirectory (std::string filePath);
 std::string* getFileNamesInDirectory(std::string filePath);
-int* getFileSizesInDirectory(std::string filePath);
+uint32_t* getFileSizesInDirectory(std::string filePath);
 int rebuildRDFat(std::string outputFolder, bool internal);
-int appendDAT(std::string outputFolder, std::string* fileNames, int* fileSizes, int numOfFiles);
-int createDAT(std::string outputFolder, std::string* fileNames, int* fileSizes, int numOfFiles);
+int appendDAT(std::string outputFolder, std::string* fileNames, uint32_t* fileSizes, uint32_t numOfFiles);
+int createDAT(std::string outputFolder, std::string* fileNames, uint32_t* fileSizes, uint32_t numOfFiles);
 
 
 #endif // HELPERS_H_INCLUDED

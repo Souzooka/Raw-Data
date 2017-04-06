@@ -9,7 +9,6 @@ using namespace boost::filesystem;
 
 // This function will extract a .DAT file when given information from its header.
 // NOTE: We should move all of these parameters *into* extractFiles,
-// we need a helper function that'll locate a .FAT with the same name in this directory
 int extractFiles(ifstream &inputFile, string outputFolder, uint32_t numOfFiles, string * fileNames, uint32_t * fileLengths, uint32_t * fileLocations, uint32_t fileOffset, string inputFilePath)
 {
     string fileName;

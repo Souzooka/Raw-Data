@@ -19,9 +19,9 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     path p(outputFolder);
     path returnPath(current_path());
     ofstream outputFile;
-    int numofFiles = getFilesInDirectory(outputFolder);
+    uint32_t numofFiles = getFilesInDirectory(outputFolder);
     string* fileNames = getFileNamesInDirectory(outputFolder);
-    int* fileSizes = getFileSizesInDirectory(outputFolder);
+    uint32_t* fileSizes = getFileSizesInDirectory(outputFolder);
     int fileSizeBuffer;
     current_path(outputFolder);
     current_path("../");
@@ -44,15 +44,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     }
 
     // if internal fat write this otherwise write emptybuffer
-    if (internal)
-    {
-        outputFile.write(internalfatbuffer, 4);
-    }
-    else
-    {
-        outputFile.write(emptybuffer, 4);
-    }
-
+    (internal) ? outputFile.write(internalfatbuffer, 4) : outputFile.write(emptybuffer, 4);
 
     for (int i = 0; i < 55; ++i)
     {
@@ -60,18 +52,11 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     }
 
     outputFile.write(unknownbuffer, 4);
-    // 0xF8 -- filename pointer
     outputFile.write(emptybuffer, 4);
-    // 0xFC -- filedata pointer
     outputFile.write(emptybuffer, 4);
 
-    // all the data pointer stuff goes here
-
-    // three (3 used here) pointer types:
-    // filestarts
-    // filelengths
-    // filenames
-    for (int i = 0; i < (numofFiles * 3); ++i)
+    // this is
+    for (uint32_t i = 0; i < (numofFiles * 3); ++i)
     {
         outputFile.write(emptybuffer, 4);
     }
@@ -85,7 +70,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     int currentPtr = 0x108;
     int endOfFile = 0;
 
-    for (int i = 0; i < numofFiles; ++i)
+    for (uint32_t i = 0; i < numofFiles; ++i)
     {
         endOfFile = outputFile.tellp();
         outputFile.seekp(currentPtr);
@@ -96,14 +81,13 @@ int rebuildRDFat(std::string outputFolder, bool internal)
         outputFile.write(smallemptybuffer, 1);
     }
 
-    // pls refactor this whole file basically
-    int stop = (outputFile.tellp() % 16 * -1 + 16);
-    for (int i = 0; i < stop; ++i)
+    // write null bytes until EOF is 0x10-synced
+    while (outputFile.tellp() % 0x10 != 0x0)
     {
         outputFile.write(smallemptybuffer, 1);
     }
 
-    // if internal do this
+    // if internal write the EOF to 0xFC
     if (internal)
     {
         endOfFile = outputFile.tellp();
@@ -111,11 +95,10 @@ int rebuildRDFat(std::string outputFolder, bool internal)
         outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
     }
 
-
     currentPtr = 0x100;
     int fileSizeTotal = 0x0;
 
-    for (int i = 0; i < numofFiles; ++i)
+    for (uint32_t i = 0; i < numofFiles; ++i)
     {
         outputFile.seekp(currentPtr);
         outputFile.write(reinterpret_cast<const char *>(&fileSizeTotal), sizeof(fileSizeTotal));
@@ -147,13 +130,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     outputFile.close();
     current_path(returnPath);
 
-    if (internal)
-    {
-        appendDAT(outputFolder, fileNames, fileSizes, numofFiles);
-    }
-    else
-    {
-        createDAT(outputFolder, fileNames, fileSizes, numofFiles);
-    }
+    (internal) ? appendDAT(outputFolder, fileNames, fileSizes, numofFiles) : createDAT(outputFolder, fileNames, fileSizes, numofFiles);
+
     return 0;
 }

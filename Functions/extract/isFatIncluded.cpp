@@ -16,6 +16,4 @@ bool isFatIncluded(string inputFilePath)
 
     ifstream infile(fileToCheck.c_str());
     return !infile.good();
-
-
 }
