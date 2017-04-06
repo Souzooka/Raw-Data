@@ -9,7 +9,7 @@ using namespace std;
 string* getFileNames(ifstream &inputFile)
 {
     uint32_t iterations = getNumberOfFiles(inputFile);
-    uint32_t * namePtrs = getFileNamePtrs(inputFile);
+    uint32_t* namePtrs = getFileNamePtrs(inputFile);
     string* fileNames = new string[iterations];
 
     uint32_t currentPtr;

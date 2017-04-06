@@ -49,7 +49,7 @@ int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 
 int main()
 {
-    rebuildRDFat("test/@ROOT.DAT", false);
+    //rebuildRDFat("test/@ROOT.DAT", false);
     string inputFilePath = getFilePathFromUser();
 
     (isFatIncluded(inputFilePath)) ? gatherFileInfoAndCallExtract(inputFilePath, true) : gatherFileInfoAndCallExtract(inputFilePath, false);
