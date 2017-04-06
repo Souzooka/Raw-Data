@@ -24,8 +24,8 @@ int getFilesInDirectory (std::string filePath);
 std::string* getFileNamesInDirectory(std::string filePath);
 int* getFileSizesInDirectory(std::string filePath);
 int rebuildRDFat(std::string outputFolder, bool internal);
-int appendDAT(std::string outputFolder);
-int createDAT(std::string outputFolder);
+int appendDAT(std::string outputFolder, std::string* fileNames, int* fileSizes, int numOfFiles);
+int createDAT(std::string outputFolder, std::string* fileNames, int* fileSizes, int numOfFiles);
 
 
 #endif // HELPERS_H_INCLUDED

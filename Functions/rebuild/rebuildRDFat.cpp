@@ -22,6 +22,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     int numofFiles = getFilesInDirectory(outputFolder);
     string* fileNames = getFileNamesInDirectory(outputFolder);
     int* fileSizes = getFileSizesInDirectory(outputFolder);
+    int fileSizeBuffer;
     current_path(outputFolder);
     current_path("../");
 
@@ -30,7 +31,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     char fatbuffer[] = { 0x46, 0x41, 0x54, 0x20 };
     char emptybuffer[] = { 0x00, 0x00, 0x00, 0x00 };
     char smallemptybuffer[] = { 0x00 };
-    char externalfatbuffer[] = { 0x02, 0x00, 0x00, 0x00 };
+    char internalfatbuffer[] = { 0x02, 0x00, 0x00, 0x00 };
     char unknownbuffer[] = { 0x00, 0x01, 0x00, 0x00 };
     string file = p.filename().string().substr(1, p.filename().string().length() - 5) + ".FAT";
     outputFile.open(file.c_str());
@@ -42,10 +43,10 @@ int rebuildRDFat(std::string outputFolder, bool internal)
         outputFile.write(emptybuffer, 4);
     }
 
-    // if external fat write this otherwise write emptybuffer
-    if (!internal)
+    // if internal fat write this otherwise write emptybuffer
+    if (internal)
     {
-        outputFile.write(externalfatbuffer, 4);
+        outputFile.write(internalfatbuffer, 4);
     }
     else
     {
@@ -121,11 +122,25 @@ int rebuildRDFat(std::string outputFolder, bool internal)
         currentPtr += 0x4;
         outputFile.seekp(currentPtr);
         outputFile.write(reinterpret_cast<const char *>(&fileSizes[i]), sizeof(fileSizes[i]));
-        if (fileSizes[i] % 0x800 != 0x0)
+
+        // organize files so that they are synced at certain points.
+        // e.g. you wouldn't store a float at 0x2, you'd store it at 0x4 or 0x0, etc. This is the same concept.
+        // this doesn't change how files are stored in the DAT portion -- just allows us to get the correct numbers for the header.
+        if (!internal && fileSizes[i] % 0x800 != 0x0)
         {
-            fileSizes[i] += ((fileSizes[i] % 0x800) + 0x800) - (fileSizes[i] % 0x800 * 2);
+            fileSizeBuffer = ((fileSizes[i] % 0x800) + 0x800) - (fileSizes[i] % 0x800 * 2);
         }
-        fileSizeTotal += fileSizes[i];
+        else if (internal && fileSizes[i] % 0x10 != 0x0)
+        {
+            fileSizeBuffer = ((fileSizes[i] % 0x10) + 0x10) - (fileSizes[i] % 0x10 * 2);
+        }
+        else
+        {
+            // set/reset to 0 to avoid garbage
+            fileSizeBuffer = 0;
+        }
+
+        fileSizeTotal += (fileSizeBuffer + fileSizes[i]);
         currentPtr += 0x8;
     }
 
@@ -134,11 +149,11 @@ int rebuildRDFat(std::string outputFolder, bool internal)
 
     if (internal)
     {
-        appendDAT(outputFolder);
+        appendDAT(outputFolder, fileNames, fileSizes, numofFiles);
     }
     else
     {
-        createDAT(outputFolder);
+        createDAT(outputFolder, fileNames, fileSizes, numofFiles);
     }
     return 0;
 }
