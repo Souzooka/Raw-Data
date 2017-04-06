@@ -15,33 +15,48 @@ std::string getFilePathFromUser()
     return inputFilePath;
 }
 
+int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
+{
+    std::string fatFilePath;
+
+    if (!internal)
+    {
+        fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
+    }
+    else
+    {
+        fatFilePath = inputFilePath;
+    }
+
+    std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
+
+    std::ifstream inputFile(inputFilePath.c_str());
+    std::ifstream fatFile(fatFilePath.c_str());
+
+    std::string * fileNames = getFileNames(fatFile);
+
+    int numOfFiles = getNumberOfFiles(fatFile);
+    int * fileLengths = getFileLengths(fatFile);
+    int * fileLocations = getFileDataPtrs(fatFile);
+    int fileOffset = getFileDataStartPtr(fatFile);
+
+    extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
+    return 0;
+}
+
 int main()
 {
 
     // rebuildRDFat("test/@ROOT.DAT", false);
     std::string inputFilePath = getFilePathFromUser();
-    std::ifstream inputFile(inputFilePath.c_str());
-    std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
 
     if (!isFatIncluded(inputFilePath))
     {
-        std::string fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
-        std::ifstream fatFile(fatFilePath.c_str());
-        int numOfFiles = getNumberOfFiles(fatFile);
-        std::string * fileNames = getFileNames(fatFile);
-        int * fileLengths = getFileLengths(fatFile);
-        int * fileLocations = getFileDataPtrs(fatFile);
-        int fileOffset = getFileDataStartPtr(fatFile);
-        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
+        gatherFileInfoAndCallExtract(inputFilePath, false);
     }
     else
     {
-        int numOfFiles = getNumberOfFiles(inputFile);
-        std::string * fileNames = getFileNames(inputFile);
-        int * fileLengths = getFileLengths(inputFile);
-        int * fileLocations = getFileDataPtrs(inputFile);
-        int fileOffset = getFileDataStartPtr(inputFile);
-        extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
+        gatherFileInfoAndCallExtract(inputFilePath, true);
     }
 
 
