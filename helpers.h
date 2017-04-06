@@ -9,13 +9,12 @@ std::string cleanFileString(std::string filePath, std::string fileName);
 // for extracting archives
 bool isFatIncluded(std::string inputFilePath);
 uint32_t getNumberOfFiles(std::ifstream &InputFile);
-uint32_t getFileNameDataStartPtr(std::ifstream &inputFile);
 uint32_t getFileDataStartPtr(std::ifstream &inputFile);
-int* getFileNamePtrs(std::ifstream &inputFile);
-int* getFileLengths(std::ifstream &inputFile);
-int* getFileDataPtrs(std::ifstream &inputFile);
+uint32_t* getFileNamePtrs(std::ifstream &inputFile);
+uint32_t* getFileLengths(std::ifstream &inputFile);
+uint32_t* getFileDataPtrs(std::ifstream &inputFile);
 std::string* getFileNames(std::ifstream &inputFile);
-int extractFiles(std::ifstream &inputFile, std::string outputFolder, int numOfFiles, std::string * fileNames, int * fileLengths, int * fileLocations, int fileOffset, std::string inputFilePath);
+int extractFiles(std::ifstream &inputFile, std::string outputFolder, uint32_t numOfFiles, std::string * fileNames, uint32_t * fileLengths, uint32_t * fileLocations, uint32_t fileOffset, std::string inputFilePath);
 bool isRDFile(std::ifstream &inputFile);
 
 // for rebuilding archives

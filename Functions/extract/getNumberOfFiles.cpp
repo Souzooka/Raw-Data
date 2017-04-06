@@ -5,7 +5,7 @@
 uint32_t getNumberOfFiles(std::ifstream &inputFile)
 {
     inputFile.seekg(0x4);
-    int numOfFiles;
+    uint32_t numOfFiles;
     inputFile.read((char*)&numOfFiles, sizeof(uint32_t));
 
     return numOfFiles;

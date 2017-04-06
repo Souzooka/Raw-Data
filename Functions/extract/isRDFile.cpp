@@ -10,7 +10,7 @@ using namespace std;
 // there is a possibility for error if the first padding value ends up actually pointing to the first filename,
 // but since padding is usually something like "0x03000000" or "0xFFFFFFFF" this is a very low if impossible chance.
 // Note: for reconstruction of these files the content of the padding seems to be completely irrelevant towards operation of the game
-bool isRDFile(std::ifstream &inputFile)
+bool isRDFile(ifstream &inputFile)
 {
     inputFile.seekg(0xF8);
     int base;

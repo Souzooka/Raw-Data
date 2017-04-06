@@ -6,39 +6,39 @@
 
 using namespace std;
 
+// This project's only dependency is Boost Filesystem (which requires Boost System).
+// http://stackoverflow.com/questions/12578499/how-to-install-boost-on-ubuntu
+// http://www.boost.org/
+
+// NOTE: Most of the numbers in this project are uint_32 because due to the C++11 standard, minimum size of int is 2 bytes, which is too small for our tasks.
+// Also, none of these pointers will be negative, of course, meaning uints are better for the needs of this project.
+
 //tentative, will probably get refactored into fancy console arguments or a GUI and also be capable of fancy recursion options
-std::string getFilePathFromUser()
+string getFilePathFromUser()
 {
     cout << "Enter the filepath of a .DAT file to extract" << endl;
-    std::string inputFilePath;
+    string inputFilePath;
     cin >> inputFilePath;
     return inputFilePath;
 }
 
 int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 {
-    std::string fatFilePath;
+    string fatFilePath;
 
-    if (!internal)
-    {
-        fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
-    }
-    else
-    {
-        fatFilePath = inputFilePath;
-    }
+    (internal) ? fatFilePath = inputFilePath : fatFilePath = inputFilePath.substr(0, inputFilePath.length() - 4) + ".FAT";
 
-    std::string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
+    string outputFolder = getPath(inputFilePath) + "/@" + getFileNameFromPath(inputFilePath);
 
-    std::ifstream inputFile(inputFilePath.c_str());
-    std::ifstream fatFile(fatFilePath.c_str());
+    ifstream inputFile(inputFilePath.c_str());
+    ifstream fatFile(fatFilePath.c_str());
 
-    std::string * fileNames = getFileNames(fatFile);
+    string* fileNames = getFileNames(fatFile);
 
-    int numOfFiles = getNumberOfFiles(fatFile);
-    int * fileLengths = getFileLengths(fatFile);
-    int * fileLocations = getFileDataPtrs(fatFile);
-    int fileOffset = getFileDataStartPtr(fatFile);
+    uint32_t numOfFiles = getNumberOfFiles(fatFile);
+    uint32_t* fileLengths = getFileLengths(fatFile);
+    uint32_t* fileLocations = getFileDataPtrs(fatFile);
+    uint32_t fileOffset = getFileDataStartPtr(fatFile);
 
     extractFiles(inputFile, outputFolder, numOfFiles, fileNames, fileLengths, fileLocations, fileOffset, inputFilePath);
     return 0;
@@ -46,20 +46,10 @@ int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 
 int main()
 {
-
     // rebuildRDFat("test/@ROOT.DAT", false);
-    std::string inputFilePath = getFilePathFromUser();
+    string inputFilePath = getFilePathFromUser();
 
-    if (!isFatIncluded(inputFilePath))
-    {
-        gatherFileInfoAndCallExtract(inputFilePath, false);
-    }
-    else
-    {
-        gatherFileInfoAndCallExtract(inputFilePath, true);
-    }
-
-
+    (isFatIncluded(inputFilePath)) ? gatherFileInfoAndCallExtract(inputFilePath, true) : gatherFileInfoAndCallExtract(inputFilePath, false);
     return 0;
 }
 

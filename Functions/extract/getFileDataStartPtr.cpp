@@ -6,7 +6,7 @@
 uint32_t getFileDataStartPtr(std::ifstream &inputFile)
 {
     inputFile.seekg(0xFC);
-    int nameDataPtr;
+    uint32_t nameDataPtr;
     inputFile.read((char*)&nameDataPtr, sizeof(uint32_t));
 
     return nameDataPtr;
