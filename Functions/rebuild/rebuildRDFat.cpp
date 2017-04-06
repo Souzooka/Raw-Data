@@ -3,18 +3,14 @@
 #include <inttypes.h>
 #include <iostream>
 #include <fstream>
-#include <sstream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <algorithm>
 #include "../../helpers.h"
 
 using namespace std;
 using namespace boost::filesystem;
 
-int rebuildRDFat(std::string outputFolder, bool internal)
+int rebuildRDFat(string outputFolder, bool internal)
 {
-    std::cout << "Gathering file information\n";
+    cout << "Gathering file information\n";
 
     path p(outputFolder);
     path returnPath(current_path());
@@ -26,7 +22,7 @@ int rebuildRDFat(std::string outputFolder, bool internal)
     current_path(outputFolder);
     current_path("../");
 
-    std::cout << "Rebuilding header\n";
+    cout << "Rebuilding header\n";
 
     char fatbuffer[] = { 0x46, 0x41, 0x54, 0x20 };
     char emptybuffer[] = { 0x00, 0x00, 0x00, 0x00 };
