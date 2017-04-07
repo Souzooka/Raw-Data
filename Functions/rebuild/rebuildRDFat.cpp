@@ -8,7 +8,7 @@
 using namespace std;
 using namespace boost::filesystem;
 
-int rebuildRDFat(string outputFolder, bool internal)
+int rebuildRDFat(string outputFolder, bool internal, bool isRDFile)
 {
     cout << "Gathering file information\n";
 
@@ -25,6 +25,7 @@ int rebuildRDFat(string outputFolder, bool internal)
     cout << "Rebuilding header\n";
 
     char fatbuffer[] = { 0x46, 0x41, 0x54, 0x20 };
+    char paddingbuffer[] = { 0xFF, 0xFF, 0xFF, 0xFF };
     char emptybuffer[] = { 0x00, 0x00, 0x00, 0x00 };
     char smallemptybuffer[] = { 0x00 };
     char internalfatbuffer[] = { 0x02, 0x00, 0x00, 0x00 };
@@ -51,26 +52,32 @@ int rebuildRDFat(string outputFolder, bool internal)
     outputFile.write(emptybuffer, 4);
     outputFile.write(emptybuffer, 4);
 
-    // this is
-    for (uint32_t i = 0; i < (numofFiles * 3); ++i)
+    uint32_t fileInfoLength;
+    isRDFile ? fileInfoLength = 3 : fileInfoLength = 4;
+
+    for (uint32_t i = 0; i < (numofFiles * fileInfoLength); ++i)
     {
         outputFile.write(emptybuffer, 4);
     }
 
-    int nameStart = outputFile.tellp();
+    uint32_t nameStart = outputFile.tellp();
     outputFile.seekp(0xF8);
     outputFile.write(reinterpret_cast<const char *>(&nameStart), sizeof(nameStart));
-
     outputFile.seekp(nameStart);
 
-    int currentPtr = 0x108;
-    int endOfFile = 0;
+    uint32_t currentPtr;
+    isRDFile ? currentPtr = 0x108 : currentPtr = 0x10C;
+
+    uint32_t ptrIncrementer;
+    isRDFile ? ptrIncrementer = 0xC : ptrIncrementer = 0x10;
+
+    uint32_t endOfFile;
 
     for (uint32_t i = 0; i < numofFiles; ++i)
     {
         endOfFile = outputFile.tellp();
         outputFile.seekp(currentPtr);
-        currentPtr += 0xC;
+        currentPtr += ptrIncrementer;
         outputFile.write(reinterpret_cast<const char *>(&endOfFile), sizeof(endOfFile));
         outputFile.seekp(endOfFile);
         outputFile << cleanFileString(outputFolder, fileNames[i]);
@@ -92,6 +99,7 @@ int rebuildRDFat(string outputFolder, bool internal)
     }
 
     currentPtr = 0x100;
+    ptrIncrementer = 0x8;
     int fileSizeTotal = 0x0;
 
     for (uint32_t i = 0; i < numofFiles; ++i)
@@ -101,6 +109,13 @@ int rebuildRDFat(string outputFolder, bool internal)
         currentPtr += 0x4;
         outputFile.seekp(currentPtr);
         outputFile.write(reinterpret_cast<const char *>(&fileSizes[i]), sizeof(fileSizes[i]));
+
+        if (!isRDFile)
+        {
+            currentPtr += 0x4;
+            outputFile.seekp(currentPtr);
+            outputFile.write(paddingbuffer, 4);
+        }
 
         // organize files so that they are synced at certain points.
         // e.g. you wouldn't store a float at 0x2, you'd store it at 0x4 or 0x0, etc. This is the same concept.
@@ -120,7 +135,8 @@ int rebuildRDFat(string outputFolder, bool internal)
         }
 
         fileSizeTotal += (fileSizeBuffer + fileSizes[i]);
-        currentPtr += 0x8;
+        currentPtr += ptrIncrementer;
+        cout << std::hex << currentPtr << endl;
     }
 
     outputFile.close();

@@ -22,7 +22,7 @@ int rebuildEmptyFile(std::string fileName);
 uint32_t getFilesInDirectory (std::string filePath);
 std::string* getFileNamesInDirectory(std::string filePath);
 uint32_t* getFileSizesInDirectory(std::string filePath);
-int rebuildRDFat(std::string outputFolder, bool internal);
+int rebuildRDFat(std::string outputFolder, bool internal, bool isRDFile = true);
 int appendDAT(std::string outputFolder, std::string* fileNames, uint32_t* fileSizes, uint32_t numOfFiles);
 int createDAT(std::string outputFolder, std::string* fileNames, uint32_t* fileSizes, uint32_t numOfFiles);
 

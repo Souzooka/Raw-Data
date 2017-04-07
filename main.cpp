@@ -17,9 +17,78 @@ using namespace std;
 // TODO: File validation (Boost catches some of this but some things can cause segmentation faults)
 
 //tentative, will probably get refactored into fancy console arguments or a GUI and also be capable of fancy looping options
+
+bool getFileOperationFromUser()
+{
+    cout << "Do you wish to [e]xtract or [r]ebuild a .DAT file?\n";
+    char userResponse;
+
+    while (true)
+    {
+        cin >> userResponse;
+        if (userResponse == 'e' || userResponse == 'E')
+        {
+            return true;
+        }
+        else if (userResponse == 'r' || userResponse == 'R')
+        {
+            return false;
+        }
+        cout << "Do you wish to [e]xtract or [r]ebuild a .DAT file?\n";
+    }
+}
+
+bool getFATTypeFromUser()
+{
+    cout << "Do you wish to rebuild a [R]aw Danger file, or a [G]eneric IREM file?\n";
+    char userResponse;
+
+    while (true)
+    {
+        cin >> userResponse;
+        if (userResponse == 'r' || userResponse == 'R')
+        {
+            return true;
+        }
+        else if (userResponse == 'g' || userResponse == 'G')
+        {
+            return false;
+        }
+        cout << "Do you wish to rebuild a [R]aw Danger file, or a [G]eneric IREM file?\n";
+    }
+}
+
+bool getInternalFromUser()
+{
+    cout << "Do you wish to build a file with an [e]xternal .FAT file (for big files), or with an [i]nternal header (for small files)?\n";
+    char userResponse;
+
+    while (true)
+    {
+        cin >> userResponse;
+        if (userResponse == 'i' || userResponse == 'I')
+        {
+            return true;
+        }
+        else if (userResponse == 'e' || userResponse == 'E')
+        {
+            return false;
+        }
+        cout << "Do you wish to build a file with an [e]xternal .FAT file (for big files), or with an [i]nternal header (for small files)?\n";
+    }
+}
+
+string getFolderPathFromUser()
+{
+    cout << "Enter the filepath of a folder to rebuild.\n";
+    string inputFilePath;
+    cin >> inputFilePath;
+    return inputFilePath;
+}
+
 string getFilePathFromUser()
 {
-    cout << "Enter the filepath of a .DAT file to extract" << endl;
+    cout << "Enter the filepath of a .DAT file to extract.\n";
     string inputFilePath;
     cin >> inputFilePath;
     return inputFilePath;
@@ -49,10 +118,42 @@ int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 
 int main()
 {
-    //rebuildRDFat("test/@ROOT.DAT", false);
-    string inputFilePath = getFilePathFromUser();
+    char userResponse;
+    while (true)
+    {
+        bool extract = getFileOperationFromUser();
+        if (extract)
+        {
+            string inputFilePath = getFilePathFromUser();
+            (isFatIncluded(inputFilePath)) ? gatherFileInfoAndCallExtract(inputFilePath, true) : gatherFileInfoAndCallExtract(inputFilePath, false);
+        }
+        else
+        {
+            cout << "Please enter in more information about the file you wish to rebuild.\n";
+            // true = RD Fat, false = Generic Fat
+            bool FATType = getFATTypeFromUser();
+            // true = small FAT, false = big FAT
+            bool internal = getInternalFromUser();
+            string inputFolderPath = getFolderPathFromUser();
 
-    (isFatIncluded(inputFilePath)) ? gatherFileInfoAndCallExtract(inputFilePath, true) : gatherFileInfoAndCallExtract(inputFilePath, false);
+            if (internal)
+            {
+                FATType ? rebuildRDFat(inputFolderPath, true) : rebuildRDFat(inputFolderPath, true, false);
+            }
+            else
+            {
+                FATType ? rebuildRDFat(inputFolderPath, false) : rebuildRDFat(inputFolderPath, false, false);
+            }
+        }
+        cout << "Do you wish to perform another operation? [y?]\n";
+        cin >> userResponse;
+
+        if (userResponse != 'y' && userResponse != 'Y')
+        {
+            break;
+        }
+    }
+
     return 0;
 }
 
