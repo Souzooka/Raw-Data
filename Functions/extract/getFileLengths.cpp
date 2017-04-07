@@ -11,7 +11,7 @@ uint32_t* getFileLengths(std::ifstream &inputFile)
     uint32_t ptrIncrementer;
     uint32_t currentPtr = 0x104;
 
-    (isRDFile(inputFile)) ? ptrIncrementer = 0xC : 0x10;
+    (isRDFile(inputFile)) ? ptrIncrementer = 0xC : ptrIncrementer = 0x10;
 
     for (uint32_t i = 0; i < iterations; ++i)
     {

@@ -16,8 +16,8 @@ uint32_t* getFileNamePtrs(ifstream &inputFile)
 
     // since the header in older FATs are padded, we need to change our initial starting location
     // due to padding being inserted before the filename pointers
-    (isRDFile(inputFile)) ? ptrIncrementer = 0xC : 0x10;
-    (isRDFile(inputFile)) ? currentPtr = 0x108 : 0x10C;
+    (isRDFile(inputFile)) ? ptrIncrementer = 0xC : ptrIncrementer = 0x10;
+    (isRDFile(inputFile)) ? currentPtr = 0x108 : currentPtr = 0x10C;
 
     for (uint32_t i = 0; i < iterations; ++i)
     {
