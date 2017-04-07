@@ -5,6 +5,7 @@
 #include "helpers.h"
 
 using namespace std;
+using namespace boost::filesystem;
 
 // This project's only dependency is Boost Filesystem (which requires Boost System).
 // http://stackoverflow.com/questions/12578499/how-to-install-boost-on-ubuntu
@@ -119,6 +120,7 @@ int gatherFileInfoAndCallExtract(std::string inputFilePath, bool internal)
 int main()
 {
     char userResponse;
+    path returnPath(current_path());
     while (true)
     {
         bool extract = getFileOperationFromUser();
@@ -152,6 +154,7 @@ int main()
         {
             break;
         }
+        current_path(returnPath);
     }
 
     return 0;

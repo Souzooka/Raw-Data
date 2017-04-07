@@ -136,7 +136,6 @@ int rebuildRDFat(string outputFolder, bool internal, bool isRDFile)
 
         fileSizeTotal += (fileSizeBuffer + fileSizes[i]);
         currentPtr += ptrIncrementer;
-        cout << std::hex << currentPtr << endl;
     }
 
     outputFile.close();
