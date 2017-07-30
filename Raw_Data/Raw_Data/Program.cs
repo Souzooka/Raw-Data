@@ -22,7 +22,8 @@ namespace Raw_Data
 			if (!File.Exists(path))
 			{
 				Console.WriteLine("File does not exist!");
-				throw new ArgumentException("File does not exist!");
+				Main(args); // FIXME: This causes a potential memory leak dummy, how can you cause a memory leak in C#
+				return;
 			}
 
 			// TODO: Recursive extract?
@@ -55,7 +56,7 @@ namespace Raw_Data
 			else
 			{
 				// Open .FAT in same folder
-				headerReader = new BinaryReader(File.Open(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + ".FAT", FileMode.Open));
+				headerReader = new BinaryReader(File.Open(FindFAT(path), FileMode.Open));
 				fileDataOffset = 0;
 			}
 
@@ -69,13 +70,33 @@ namespace Raw_Data
 			for (int i = 0; i < fileCount; ++i)
 			{
 				Directory.CreateDirectory(Path.GetDirectoryName(fileNames[i]));
-				File.Create(fileNames[i]);
+				BinaryWriter writer = new BinaryWriter(File.Open(fileNames[i], FileMode.Create));
+				bodyReader.BaseStream.Position = fileLocations[i] + fileDataOffset;
+
+				byte[] buffer = new Byte[1024];
+				int bytesRead;
+				int targetBytes = fileLengths[i];
+
+				while (true)
+				{
+					int bytesToRead = Math.Min(1024, targetBytes);
+					bytesRead = bodyReader.Read(buffer, 0, bytesToRead);
+					if (bytesRead == 0) { break; }
+					targetBytes -= bytesToRead;
+					writer.Write(buffer, 0, bytesRead);
+				}
+				writer.Close();
 			}
 
 			headerReader.Close();
 			bodyReader.Close();
 
  			Console.WriteLine("butts");
+		}
+
+		public static string FindFAT(string path)
+		{
+			return ((Path.GetDirectoryName(path) == "") ? "" : Path.GetDirectoryName(path) + Path.DirectorySeparatorChar) + Path.GetFileNameWithoutExtension(path) + ".FAT";
 		}
 
 		public static List<int> GetFileLengths(BinaryReader reader, int count, int step)
