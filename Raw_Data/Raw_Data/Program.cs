@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Raw_Data
@@ -35,7 +36,36 @@ namespace Raw_Data
 			BinaryReader headerReader = new BinaryReader(File.Open(path, FileMode.Open));
 			int fileCount = GetFileCount(headerReader);
 			int step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
-			Console.WriteLine(step);
+			List<string> fileNames = GetFileNames(headerReader, fileCount);
+			fileNames.ForEach(Console.WriteLine);
+			Console.WriteLine("butts");
+		}
+
+		public static List<string> GetFileNames(BinaryReader reader, int count)
+		{
+			long temp = reader.BaseStream.Position;
+
+			reader.BaseStream.Position = 0xF8;
+			reader.BaseStream.Position = reader.ReadInt32();
+
+			List<string> result = new List<string>();
+
+			for (int i = 0; i < count; ++i)
+			{
+				List<char> charArr = new List<char>();
+				while (true)
+				{
+					char letter = reader.ReadChar();
+					if (letter == (char)0) { break; }
+					charArr.Add(letter);
+				}
+
+				result.Add(String.Concat(charArr));
+			}
+
+			reader.BaseStream.Position = temp;
+
+			return result;
 		}
 
 		// Returns true if the current file is a header file
