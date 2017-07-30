@@ -33,17 +33,40 @@ namespace Raw_Data
 		public static void Extract(string path)
 		{
 			BinaryReader headerReader = new BinaryReader(File.Open(path, FileMode.Open));
-			Console.WriteLine(isFAT(headerReader));
+			Console.WriteLine(GetFileCount(headerReader));
 		}
 
-		public static bool isFAT(BinaryReader reader)
+		public static bool IsFAT(BinaryReader reader)
 		{
+			// Retain current reader's position
 			long temp = reader.BaseStream.Position;
+
+			// Set reader's position to the start of file
 			reader.BaseStream.Position = 0;
+
+			// Concatenate the first four bytes into a string
 			string result = String.Concat(reader.ReadChars(4));
+
+			// Restore reader's position
 			reader.BaseStream.Position = temp;
+
 			return result == "FAT ";
 		}
 
+		public static int GetFileCount(BinaryReader reader)
+		{
+			// Retain current reader's position
+			long temp = reader.BaseStream.Position;
+
+			// Set reader's position to the correct position
+			reader.BaseStream.Position = 0x4;
+
+			int result = reader.ReadInt32();
+
+			// Restore reader's position
+			reader.BaseStream.Position = temp;
+
+			return result;
+		}
 	}
 }
