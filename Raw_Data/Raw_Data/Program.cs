@@ -35,32 +35,90 @@ namespace Raw_Data
 		public static void Extract(string path)
 		{
 			BinaryReader headerReader;
-			BinaryReader bodyReader  = new BinaryReader(File.Open(path, FileMode.Open));
+			BinaryReader bodyReader = new BinaryReader(File.Open(path, FileMode.Open));
 			int fileDataOffset;
 			int fileCount;
 			int step;
 			List<string> fileNames;
+			List<int> fileLengths;
+			List<int> fileLocations;
 
 			if (IsFAT(bodyReader))
 			{
 				long temp = bodyReader.BaseStream.Position;
 				bodyReader.BaseStream.Position = 0xFC;
 				fileDataOffset = bodyReader.ReadInt32();
-				headerReader = new BinaryReader(File.Open(path, FileMode.Open));
+				headerReader = bodyReader;
 
 				bodyReader.BaseStream.Position = temp;
 			}
 			else
 			{
+				// Open .FAT in same folder
 				headerReader = new BinaryReader(File.Open(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + ".FAT", FileMode.Open));
 				fileDataOffset = 0;
 			}
 
 			fileCount = GetFileCount(headerReader);
 			step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
-			fileNames = GetFileNames(headerReader, fileCount).Select(v => ((Path.GetDirectoryName(path) == "") ? "" : Path.GetDirectoryName(path) + Path.DirectorySeparatorChar) + "@" + Path.GetFileName(path) + Path.DirectorySeparatorChar + v).ToList();
-			fileNames.ForEach(Console.WriteLine);
+			fileNames = GetFullPaths(GetFileNames(headerReader, fileCount), path);
+			fileLengths = GetFileLengths(headerReader, fileCount, step);
+			fileLocations = GetFileLocations(headerReader, fileCount, step);
+			fileLengths.ForEach(v => Console.WriteLine(v.ToString("X8")));
+
+			for (int i = 0; i < fileCount; ++i)
+			{
+				Directory.CreateDirectory(Path.GetDirectoryName(fileNames[i]));
+				File.Create(fileNames[i]);
+			}
+
+			headerReader.Close();
+			bodyReader.Close();
+
  			Console.WriteLine("butts");
+		}
+
+		public static List<int> GetFileLengths(BinaryReader reader, int count, int step)
+		{
+			long temp = reader.BaseStream.Position;
+
+			reader.BaseStream.Position = 0xF4;
+			reader.BaseStream.Position = reader.ReadInt32() + 0x4;
+
+			List<int> result = new List<int>();
+
+			for (int i = 0; i < count; ++i)
+			{
+				result.Add(reader.ReadInt32());
+				reader.BaseStream.Position += step;
+			}
+
+			reader.BaseStream.Position = temp;
+			return result;
+		}
+
+		public static List<int> GetFileLocations(BinaryReader reader, int count, int step)
+		{
+			long temp = reader.BaseStream.Position;
+
+			reader.BaseStream.Position = 0xF4;
+			reader.BaseStream.Position = reader.ReadInt32();
+
+			List<int> result = new List<int>();
+
+			for (int i = 0; i < count; ++i)
+			{
+				result.Add(reader.ReadInt32());
+				reader.BaseStream.Position += step;
+			}
+
+			reader.BaseStream.Position = temp;
+			return result;
+		}
+
+		public static List<string> GetFullPaths(List<string> fileNames, string path)
+		{ 
+			return fileNames.Select(v => ((Path.GetDirectoryName(path) == "") ? "" : Path.GetDirectoryName(path) + Path.DirectorySeparatorChar) + "@" + Path.GetFileName(path) + Path.DirectorySeparatorChar + v).ToList();
 		}
 
 		public static List<string> GetFileNames(BinaryReader reader, int count)
