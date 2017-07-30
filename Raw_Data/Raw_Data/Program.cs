@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Raw_Data
 {
@@ -33,12 +34,33 @@ namespace Raw_Data
 	{
 		public static void Extract(string path)
 		{
-			BinaryReader headerReader = new BinaryReader(File.Open(path, FileMode.Open));
-			int fileCount = GetFileCount(headerReader);
-			int step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
-			List<string> fileNames = GetFileNames(headerReader, fileCount);
+			BinaryReader headerReader;
+			BinaryReader bodyReader  = new BinaryReader(File.Open(path, FileMode.Open));
+			int fileDataOffset;
+			int fileCount;
+			int step;
+			List<string> fileNames;
+
+			if (IsFAT(bodyReader))
+			{
+				long temp = bodyReader.BaseStream.Position;
+				bodyReader.BaseStream.Position = 0xFC;
+				fileDataOffset = bodyReader.ReadInt32();
+				headerReader = new BinaryReader(File.Open(path, FileMode.Open));
+
+				bodyReader.BaseStream.Position = temp;
+			}
+			else
+			{
+				headerReader = new BinaryReader(File.Open(Path.GetDirectoryName(path) + Path.DirectorySeparatorChar + Path.GetFileNameWithoutExtension(path) + ".FAT", FileMode.Open));
+				fileDataOffset = 0;
+			}
+
+			fileCount = GetFileCount(headerReader);
+			step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
+			fileNames = GetFileNames(headerReader, fileCount).Select(v => ((Path.GetDirectoryName(path) == "") ? "" : Path.GetDirectoryName(path) + Path.DirectorySeparatorChar) + "@" + Path.GetFileName(path) + Path.DirectorySeparatorChar + v).ToList();
 			fileNames.ForEach(Console.WriteLine);
-			Console.WriteLine("butts");
+ 			Console.WriteLine("butts");
 		}
 
 		public static List<string> GetFileNames(BinaryReader reader, int count)
