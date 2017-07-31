@@ -1,0 +1,2 @@
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Release\Raw_Data.exe
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Release\Raw_Data.exe

@@ -65,7 +65,6 @@ namespace Raw_Data
 			fileNames = GetFullPaths(GetFileNames(headerReader, fileCount), path);
 			fileLengths = GetFileLengths(headerReader, fileCount, step);
 			fileLocations = GetFileLocations(headerReader, fileCount, step);
-			fileLengths.ForEach(v => Console.WriteLine(v.ToString("X8")));
 
 			for (int i = 0; i < fileCount; ++i)
 			{
@@ -91,7 +90,6 @@ namespace Raw_Data
 			headerReader.Close();
 			bodyReader.Close();
 
- 			Console.WriteLine("butts");
 		}
 
 		public static string FindFAT(string path)
@@ -154,7 +152,7 @@ namespace Raw_Data
 			for (int i = 0; i < count; ++i)
 			{
 				List<char> charArr = new List<char>();
-				while (true)
+				while (reader.BaseStream.Position != reader.BaseStream.Length)
 				{
 					char letter = reader.ReadChar();
 					if (letter == (char)0) { break; }
