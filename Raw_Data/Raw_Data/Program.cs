@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Raw_Data
 {
@@ -16,16 +17,19 @@ namespace Raw_Data
 			// TODO: Get path from arguments instead
 			string path = GetPathFromUser();
 
-			// TODO: Handle the file not existing better
-			if (!File.Exists(path))
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // TODO: Handle the file not existing better
+            if (!File.Exists(path))
 			{
 				Console.WriteLine("File does not exist!");
-				Main(args); // FIXME: This causes a potential memory leak dummy, how can you cause a memory leak in C#
-				return;
+                path = GetPathFromUser();
 			}
 
-			// TODO: Recursive extract?
-			Extractor.Extract(path);
-		}
+            // TODO: Recursive extract?
+            // Extractor.Extract(path);
+            Extractor.RecursiveExtract(path);
+        }
 	}
 }

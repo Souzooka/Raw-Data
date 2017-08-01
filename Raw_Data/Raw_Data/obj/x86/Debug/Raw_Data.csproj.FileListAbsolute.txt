@@ -2,3 +2,4 @@ C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\Raw_Data.
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\Raw_Data.pdb
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.exe
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.pdb
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csprojResolveAssemblyReference.cache
