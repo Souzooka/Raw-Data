@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Raw_Data
 {
@@ -44,7 +45,7 @@ namespace Raw_Data
                 else
                 {
                     // If we cannot find header, abort
-                    Console.WriteLine($"Warning: Could not find header for {path}!");
+                    // Console.WriteLine($"Warning: Could not find header for {path}!");
                     return;
                 }
 			}
@@ -299,7 +300,7 @@ namespace Raw_Data
             }
             else
             {
-                Console.WriteLine($"Warning! Attempted to recursively extract {extractedFolder} when folder does not exist!");
+                // Console.WriteLine($"Warning! Attempted to recursively extract {extractedFolder} when folder does not exist!");
                 return;
             }
             
@@ -307,7 +308,7 @@ namespace Raw_Data
             // Iterate over the .DAT files in this folder
             foreach (var file in new DirectoryInfo(Directory.GetCurrentDirectory()).EnumerateFiles("*.DAT", SearchOption.AllDirectories))
             {
-                RecursiveExtract(file.FullName);
+                Task.Factory.StartNew(() => RecursiveExtract(file.FullName));
             }
 
         }
