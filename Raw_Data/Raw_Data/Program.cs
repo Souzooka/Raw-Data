@@ -6,28 +6,23 @@ namespace Raw_Data
 {
 	class MainClass
 	{
-		public static string GetPathFromUser()
+        [STAThread]
+        public static void Main(string[] args)
 		{
-			Console.WriteLine("Please enter the path of the .DAT file to extract:");
-			return Console.ReadLine();
-		}
-
-		public static void Main(string[] args)
-		{
-			// TODO: Get path from arguments instead
-			string path = GetPathFromUser();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // TODO: Handle the file not existing better
-            if (!File.Exists(path))
-			{
-				Console.WriteLine("File does not exist!");
-                path = GetPathFromUser();
-			}
+            string path = "";
 
-            // TODO: Recursive extract?
+            OpenFileDialog ofd = new OpenFileDialog();
+            DialogResult dr = ofd.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                path = ofd.FileName;
+            }
+
             // Extractor.Extract(path);
             Extractor.RecursiveExtract(path);
         }
