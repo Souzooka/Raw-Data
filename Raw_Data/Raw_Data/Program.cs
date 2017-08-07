@@ -1,31 +1,38 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Raw_Data
 {
 	class MainClass
 	{
-		public static string GetPathFromUser()
+        [STAThread]
+        public static void Main(string[] args)
 		{
-			Console.WriteLine("Please enter the path of the .DAT file to extract:");
-			return Console.ReadLine();
-		}
 
-		public static void Main(string[] args)
-		{
-			// TODO: Get path from arguments instead
-			string path = GetPathFromUser();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-			// TODO: Handle the file not existing better
-			if (!File.Exists(path))
-			{
-				Console.WriteLine("File does not exist!");
-				Main(args); // FIXME: This causes a potential memory leak dummy, how can you cause a memory leak in C#
-				return;
-			}
+            string path = "";
 
-			// TODO: Recursive extract?
-			Extractor.Extract(path);
-		}
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = Directory.GetCurrentDirectory();
+            ofd.Filter = "IREM Data Archive (*.DAT)|*.DAT";
+            DialogResult dr = ofd.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                path = ofd.FileName;
+            }
+            else
+            {
+                // Tentative: this will be replaced and better handled once Form1 is set up
+                // this aborts the program if user doesn't select a file
+                return;
+            }
+
+            // Extractor.Extract(path);
+            Extractor.RecursiveExtract(path);
+        }
 	}
 }

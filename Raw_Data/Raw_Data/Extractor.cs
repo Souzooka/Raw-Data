@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Raw_Data
 {
 	public class Extractor
 	{
-		public static void Extract(string path)
+        // Prepended to directories created with Extract, e.g. "ROOT.DAT" -> "@ROOT.DAT"
+        private static char folderSymbol = '@';
+
+        public static void Extract(string path)
 		{
 			BinaryReader headerReader;
 			BinaryReader bodyReader = new BinaryReader(File.Open(path, FileMode.Open));
@@ -32,22 +36,36 @@ namespace Raw_Data
 			}
 			else
 			{
-				// If not a header, Open .FAT in same folder
-				headerReader = new BinaryReader(File.Open(FindFAT(path), FileMode.Open));
-				fileDataOffset = 0;
+                // If not a header, Open .FAT in same folder
+                if (File.Exists(FindFAT(path)))
+                {
+                    headerReader = new BinaryReader(File.Open(FindFAT(path), FileMode.Open));
+                    fileDataOffset = 0;
+                }
+                else
+                {
+                    // If we cannot find header, abort
+                    // Console.WriteLine($"Warning: Could not find header for {path}!");
+                    return;
+                }
 			}
-
-			// Raw Danger has padding in its headers, so the amount to seek is different between the two variants
-			step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
 
 			// Gather all necessary file information
 			fileCount = GetFileCount(headerReader);
-			fileNames = GetFullPaths(GetFileNames(headerReader, fileCount), path);
+
+            // If .DAT file is empty, abort
+            if (fileCount == 0)
+            {
+                HandleEmptyDAT(path);
+                return;
+            }
+
+            // Raw Danger has padding in its headers, so the amount to seek is different between the two variants
+            step = ((IsRDFAT(headerReader)) ? 0x8 : 0xC);
+
+            fileNames = GetFullPaths(GetFileNames(headerReader, fileCount), path);
 			fileLengths = GetFileLengths(headerReader, fileCount, step);
 			fileLocations = GetFileLocations(headerReader, fileCount, step);
-
-			// Close the header stream, as we've parsed all necessary info from the header
-			headerReader.Close();
 
 			// Iterate over each file in the archive
 			for (int i = 0; i < fileCount; ++i)
@@ -82,6 +100,7 @@ namespace Raw_Data
 
 					// Decrement our target by the amount of data we read
 					targetBytes -= bytesRead;
+                    
 
 					// Write our read data to the new file
 					writer.Write(buffer, 0, bytesRead);
@@ -90,8 +109,11 @@ namespace Raw_Data
 				writer.Close();
 			}
 
-			// Close .DAT stream and clean up
-			bodyReader.Close();
+            // Close the header stream
+            headerReader.Close();
+
+            // Close .DAT stream and clean up
+            bodyReader.Close();
 		}
 
 		public static string FindFAT(string path)
@@ -199,10 +221,10 @@ namespace Raw_Data
 		// Changes paths found in a header file to a full relative path from the program, for easier file creation
 		public static List<string> GetFullPaths(List<string> fileNames, string path)
 		{
-			char symbol = '@';
+			
 
 			// Prepend a character to our archive so that we can create a folder with its name
-			path = Path.Combine(Path.GetDirectoryName(path), symbol + Path.GetFileName(path));
+			path = Path.Combine(Path.GetDirectoryName(path), folderSymbol + Path.GetFileName(path));
 
 			return fileNames.Select(v =>
 			{
@@ -214,6 +236,14 @@ namespace Raw_Data
 
 			}).ToList();
 		}
+
+        public static void HandleEmptyDAT(string path)
+        {
+            if (!Directory.Exists(Path.Combine(Path.GetDirectoryName(path), folderSymbol + Path.GetFileName(path))))
+            {
+                Directory.CreateDirectory(Path.Combine(Path.GetDirectoryName(path), folderSymbol + Path.GetFileName(path)));
+            }
+        }
 
 		// Returns true if the current file is a header file
 		public static bool IsFAT(BinaryReader reader)
@@ -256,5 +286,31 @@ namespace Raw_Data
 			// In a RD FAT, fnStart should equal fn1
 			return fnStart == fn1;
 		}
+
+        public static void RecursiveExtract(string path)
+        {
+            Extractor.Extract(path);
+
+            // Move to the folder we extracted to
+            string extractedFolder = Path.Combine(Path.GetDirectoryName(path), folderSymbol + Path.GetFileName(path));
+
+            if (Directory.Exists(extractedFolder))
+            {
+                Directory.SetCurrentDirectory(Path.Combine(Path.GetDirectoryName(path), folderSymbol + Path.GetFileName(path)));
+            }
+            else
+            {
+                // Console.WriteLine($"Warning! Attempted to recursively extract {extractedFolder} when folder does not exist!");
+                return;
+            }
+            
+
+            // Iterate over the .DAT files in this folder
+            foreach (var file in new DirectoryInfo(Directory.GetCurrentDirectory()).EnumerateFiles("*.DAT", SearchOption.AllDirectories))
+            {
+                Task.Factory.StartNew(() => RecursiveExtract(file.FullName));
+            }
+
+        }
 	}
 }
