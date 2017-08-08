@@ -12,6 +12,8 @@ namespace Raw_Data
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
+            
 
             string path = "";
 
