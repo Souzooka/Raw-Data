@@ -39,6 +39,16 @@ namespace Raw_Data
             btnRecursiveExtract.Enabled = true;
         }
 
+        private void btnOfdExtract_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = openFileDialogFileExtract.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                textBoxFileExtract.Text = openFileDialogFileExtract.FileName;
+            }
+        }
+
         private void btnRecursiveExtract_Click(object sender, EventArgs e)
         {
             btnExtract.Enabled = false;
@@ -50,14 +60,11 @@ namespace Raw_Data
             btnRecursiveExtract.Enabled = true;
         }
 
-        private void btnOfdExtract_Click(object sender, EventArgs e)
+        private void linkLabel1_Click(object sender, EventArgs e)
         {
-            DialogResult dr = openFileDialogFileExtract.ShowDialog();
-
-            if (dr == DialogResult.OK)
-            {
-                textBoxFileExtract.Text = openFileDialogFileExtract.FileName;
-            }
+            linkLabel1.LinkVisited = true;
+            System.Diagnostics.Process.Start("https://github.com/Souzooka/Raw-Data/");
         }
+
     }
 }
