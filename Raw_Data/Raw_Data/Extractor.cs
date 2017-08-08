@@ -46,6 +46,7 @@ namespace Raw_Data
                 {
                     // If we cannot find header, abort
                     // Console.WriteLine($"Warning: Could not find header for {path}!");
+                    bodyReader.Close();
                     return;
                 }
 			}
@@ -57,6 +58,8 @@ namespace Raw_Data
             if (fileCount == 0)
             {
                 HandleEmptyDAT(path);
+                headerReader.Close();
+                bodyReader.Close();
                 return;
             }
 
@@ -303,13 +306,16 @@ namespace Raw_Data
                 // Console.WriteLine($"Warning! Attempted to recursively extract {extractedFolder} when folder does not exist!");
                 return;
             }
-            
+
+            List<string> fileNames = new List<string>();
 
             // Iterate over the .DAT files in this folder
             foreach (var file in new DirectoryInfo(Directory.GetCurrentDirectory()).EnumerateFiles("*.DAT", SearchOption.AllDirectories))
             {
-                Task.Factory.StartNew(() => RecursiveExtract(file.FullName));
+                fileNames.Add(file.FullName);
             }
+
+            Task.WaitAll(fileNames.Select(v => Task.Factory.StartNew(() => RecursiveExtract(v))).ToArray());
 
         }
 	}
