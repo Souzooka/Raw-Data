@@ -32,7 +32,7 @@
             this.openFileDialogFileExtract = new System.Windows.Forms.OpenFileDialog();
             this.btnOfdExtract = new System.Windows.Forms.Button();
             this.btnExtract = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRecursiveExtract = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxFileExtract
@@ -42,7 +42,7 @@
             this.textBoxFileExtract.ReadOnly = true;
             this.textBoxFileExtract.Size = new System.Drawing.Size(521, 20);
             this.textBoxFileExtract.TabIndex = 0;
-            this.textBoxFileExtract.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBoxFileExtract.TextChanged += new System.EventHandler(this.textBoxFileExtract_TextChanged);
             // 
             // openFileDialogFileExtract
             // 
@@ -56,6 +56,7 @@
             this.btnOfdExtract.TabIndex = 1;
             this.btnOfdExtract.Text = "Open File in File Explorer";
             this.btnOfdExtract.UseVisualStyleBackColor = true;
+            this.btnOfdExtract.Click += new System.EventHandler(this.btnOfdExtract_Click);
             // 
             // btnExtract
             // 
@@ -66,24 +67,25 @@
             this.btnExtract.TabIndex = 2;
             this.btnExtract.Text = "Extract";
             this.btnExtract.UseVisualStyleBackColor = true;
-            this.btnExtract.Click += new System.EventHandler(this.extractBtn_Click);
+            this.btnExtract.Click += new System.EventHandler(this.btnExtract_Click);
             // 
-            // button1
+            // btnRecursiveExtract
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(510, 111);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(104, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Recursive Extract";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRecursiveExtract.Enabled = false;
+            this.btnRecursiveExtract.Location = new System.Drawing.Point(510, 111);
+            this.btnRecursiveExtract.Name = "btnRecursiveExtract";
+            this.btnRecursiveExtract.Size = new System.Drawing.Size(104, 23);
+            this.btnRecursiveExtract.TabIndex = 3;
+            this.btnRecursiveExtract.Text = "Recursive Extract";
+            this.btnRecursiveExtract.UseVisualStyleBackColor = true;
+            this.btnRecursiveExtract.Click += new System.EventHandler(this.btnRecursiveExtract_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 322);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnRecursiveExtract);
             this.Controls.Add(this.btnExtract);
             this.Controls.Add(this.btnOfdExtract);
             this.Controls.Add(this.textBoxFileExtract);
@@ -100,6 +102,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogFileExtract;
         private System.Windows.Forms.Button btnOfdExtract;
         private System.Windows.Forms.Button btnExtract;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRecursiveExtract;
     }
 }

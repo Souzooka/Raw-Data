@@ -22,14 +22,42 @@ namespace Raw_Data
             openFileDialogFileExtract.Filter = "IREM Data Archive (*.DAT)|*.DAT";
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void textBoxFileExtract_TextChanged(object sender, EventArgs e)
         {
-
+            btnExtract.Enabled = true;
+            btnRecursiveExtract.Enabled = true;
         }
 
-        private void extractBtn_Click(object sender, EventArgs e)
+        private void btnExtract_Click(object sender, EventArgs e)
         {
+            btnExtract.Enabled = false;
+            btnRecursiveExtract.Enabled = false;
 
+            Extractor.Extract(textBoxFileExtract.Text);
+
+            btnExtract.Enabled = true;
+            btnRecursiveExtract.Enabled = true;
+        }
+
+        private void btnRecursiveExtract_Click(object sender, EventArgs e)
+        {
+            btnExtract.Enabled = false;
+            btnRecursiveExtract.Enabled = false;
+
+            Extractor.RecursiveExtract(textBoxFileExtract.Text);
+
+            btnExtract.Enabled = true;
+            btnRecursiveExtract.Enabled = true;
+        }
+
+        private void btnOfdExtract_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = openFileDialogFileExtract.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                textBoxFileExtract.Text = openFileDialogFileExtract.FileName;
+            }
         }
     }
 }
