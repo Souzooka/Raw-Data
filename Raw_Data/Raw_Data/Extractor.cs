@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Raw_Data
 {
-	public class Extractor
+	public static class Extractor
 	{
         // Prepended to directories created with Extract, e.g. "ROOT.DAT" -> "@ROOT.DAT"
         private static char folderSymbol = '@';
