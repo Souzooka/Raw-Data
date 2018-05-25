@@ -54,7 +54,10 @@ namespace Raw_Data
             btnExtract.Enabled = false;
             btnRecursiveExtract.Enabled = false;
 
+            // Recursive extract w/ perserved working directory
+            string current = Directory.GetCurrentDirectory();
             Extractor.RecursiveExtract(textBoxFileExtract.Text);
+            Directory.SetCurrentDirectory(current);
 
             btnExtract.Enabled = true;
             btnRecursiveExtract.Enabled = true;

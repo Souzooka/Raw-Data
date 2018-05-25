@@ -113,7 +113,6 @@ namespace Raw_Data
             }
 
             Task.WaitAll(fileNames.Select(v => Task.Factory.StartNew(() => RecursiveExtract(v))).ToArray());
-
         }
 	}
 }
