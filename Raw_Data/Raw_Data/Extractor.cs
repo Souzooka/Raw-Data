@@ -16,7 +16,7 @@ namespace Raw_Data
             FileInfo pathInfo = new FileInfo(path);
 
             // If invalid file or header missing, abort
-            if (!Header.IsHeader(pathInfo) || !Header.FindHeader(pathInfo).Exists)
+            if (!Header.IsHeader(pathInfo) && !Header.FindHeader(pathInfo).Exists)
             {
                 return;
             }

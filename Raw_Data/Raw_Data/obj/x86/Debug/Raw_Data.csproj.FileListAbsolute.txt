@@ -8,3 +8,13 @@ C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_D
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.dll
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.xml
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csproj.CoreCompileInputs.cache
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\bin\Debug\Raw_Data.exe
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\bin\Debug\Raw_Data.pdb
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.dll
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.xml
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csprojResolveAssemblyReference.cache
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.MainForm.resources
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csproj.GenerateResource.Cache
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csproj.CoreCompileInputs.cache
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.exe
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.pdb

@@ -62,15 +62,14 @@ namespace Raw_Data
             }
             fat = pFat;
 
-            int step;
-            if (this.IsEmpty) { step = 0; }
-            else { step = (IsRDFat(pFat) ? 0xC : 0x10); }
+            int step = (IsRDFat(pFat) ? 0xC : 0x10);
 
             BinaryReader pFatBR = new BinaryReader(pFat.Open(FileMode.Open));
 
             // FileCount
             pFatBR.BaseStream.Position = 0x4;
             FileCount = pFatBR.ReadInt32();
+            if (this.IsEmpty) { step = 0; }
 
             // FileDataOffset
             pFatBR.BaseStream.Position = 0xFC;
@@ -121,6 +120,7 @@ namespace Raw_Data
             if (pFatBR.ReadInt32() == 0)
             {
                 // empty DAT
+                pFatBR.Close();
                 return false;
             }
 
