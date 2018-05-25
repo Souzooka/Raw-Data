@@ -7,3 +7,4 @@ C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_D
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csproj.GenerateResource.Cache
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.dll
 C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\bin\Debug\nunit.framework.xml
+C:\Users\Bazooka\Documents\Github\Raw-Data\Raw_Data\Raw_Data\obj\x86\Debug\Raw_Data.csproj.CoreCompileInputs.cache
