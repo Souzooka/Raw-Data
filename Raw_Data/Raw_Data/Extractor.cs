@@ -37,7 +37,7 @@ namespace Raw_Data
             for (int i = 0; i < fat.FileCount; ++i)
 			{
 
-				byte[] buffer = new Byte[1024];
+				byte[] buffer = new Byte[4096];
 				int bytesRead;
 
 				// Variable which holds how much data is left to read for one file
@@ -53,24 +53,22 @@ namespace Raw_Data
 				BinaryWriter writer = new BinaryWriter(File.Open(fat.FullFileNames[i], FileMode.Create));
 				bodyReader.BaseStream.Position = fat.FileLocations[i];
 
-				// Extraction loop for 1 file
-				while (true)
-				{
-					// If we're about to read the rest of our data for our file, only read that. Otherwise read 1024 bytes.
-					// Store the results in byte[] buffer
-					int bytesToRead = Math.Min(1024, targetBytes);
-					bytesRead = bodyReader.Read(buffer, 0, bytesToRead);
+                // Extraction loop for 1 file
+                do
+                {
+                    // If we're about to read the rest of our data for our file, only read that. Otherwise read 1024 bytes.
+                    // Store the results in byte[] buffer
+                    int bytesToRead = Math.Min(4096, targetBytes);
+                    bytesRead = bodyReader.Read(buffer, 0, bytesToRead);
 
-					// If we're at the end of the file data, break the extraction loop
-					if (bytesRead == 0) { break; }
+                    // Decrement our target by the amount of data we read
+                    targetBytes -= bytesRead;
 
-					// Decrement our target by the amount of data we read
-					targetBytes -= bytesRead;
-                    
+                    // Write our read data to the new file
+                    writer.Write(buffer, 0, bytesRead);
 
-					// Write our read data to the new file
-					writer.Write(buffer, 0, bytesRead);
-				}
+                    // If we're at the end of the file data, break the extraction loop
+                } while (bytesRead != 0);
 				// Close new file stream
 				writer.Close();
 			}

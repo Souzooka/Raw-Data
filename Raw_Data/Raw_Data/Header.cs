@@ -10,8 +10,8 @@ namespace Raw_Data
     public class Header
     {
 
-        private string fileName;
-        private FileInfo fat;
+        private string fileName = null;
+        private FileInfo fat = null;
         public int FileCount;
         public int FileDataOffset;
         private string[] fullFileNames;
