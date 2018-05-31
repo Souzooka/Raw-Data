@@ -9,9 +9,33 @@ namespace Raw_Data
 {
     public static class Rebuilder
     {
-        public static void Rebuild(string path)
+        public enum DatType
         {
-            // TODO -- normal rebuild of folder
+            LargeGeneric,
+            SmallGeneric,
+            LargeRD,
+            SmallRD
+        }
+
+        public static void Rebuild(string path, DatType archiveType = DatType.LargeRD)
+        {
+            FileInfo[] files = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories).Select(v => new FileInfo(v)).ToArray();
+            string[] fileNames = files.Select(v => v.FullName.Substring(path.Length + 1).Replace(Path.DirectorySeparatorChar, '\\')).ToArray();
+            int[] fileSizes = files.Select(v => (int)v.Length).ToArray();
+            int[] fileLocations = new int[files.Length+1];
+            fileLocations[0] = 0;
+
+            int flush = (archiveType == DatType.LargeRD || archiveType == DatType.LargeGeneric ? 0x800 : 0x10);
+            for (int i = 1; i < fileLocations.Length; ++i)
+            {
+                fileLocations[i] = fileLocations[i - 1] + fileSizes[i - 1] + (fileSizes[i - 1] % flush == 0 ? 0 : (flush - fileSizes[i - 1] % flush));
+            }
+
+            int fileCount = files.Length;
+            string datName = new DirectoryInfo(Path.GetFileNameWithoutExtension(path)).Name + ".DAT";
+            if (datName.StartsWith(Extractor.FolderSymbol.ToString())) { datName = datName.Substring(1); }
+            string datLocation = Path.GetDirectoryName(path);
+
         }
 
         public static void RecursiveRebuild(string path)
@@ -42,44 +66,38 @@ namespace Raw_Data
         {
             if (!Header.IsHeader(dataFile)) { throw new ArgumentException("File is not a header/does not contain a header."); }
             FileInfo headerFile = new FileInfo(Path.Combine(dataFile.DirectoryName, Path.GetFileNameWithoutExtension(dataFile.Name) + ".FAT"));
-            File.Move(dataFile.FullName, headerFile.FullName);
             
             // get position of data
-            BinaryReader headerBr = new BinaryReader(File.Open(headerFile.FullName, FileMode.Open));
-            headerBr.BaseStream.Position = 0xFC;
-            int truncatePos = headerBr.ReadInt32();
-            headerBr.BaseStream.Position = truncatePos;
+            BinaryReader datBr = new BinaryReader(File.Open(dataFile.FullName, FileMode.Open));
+            datBr.BaseStream.Position = 0xFC;
+            int truncatePos = datBr.ReadInt32();
+            datBr.BaseStream.Position = 0x0;
             
-            // Copy data over to new .DAT file
-            BinaryWriter datBw = new BinaryWriter(File.Open(dataFile.FullName, FileMode.Create));
+            // Copy data over to new header file
+            BinaryWriter headerBw = new BinaryWriter(File.Open(headerFile.FullName, FileMode.Create));
 
             byte[] buffer = new Byte[4096];
             int bytesRead;
 
-            int targetBytes = (int)headerFile.Length - truncatePos;
+            int targetBytes = truncatePos;
             do
             {
                 // Store the results in byte[] buffer
                 int bytesToRead = Math.Min(4096, targetBytes);
-                bytesRead = headerBr.Read(buffer, 0, bytesToRead);
+                bytesRead = datBr.Read(buffer, 0, bytesToRead);
 
                 // Decrement our target by the amount of data we read
                 targetBytes -= bytesRead;
 
                 // Write our read data to the new file
-                datBw.Write(buffer, 0, bytesRead);
+                headerBw.Write(buffer, 0, bytesRead);
 
                 // If we're at the end of the file data, break the extraction loop
             } while (bytesRead != 0);
-            datBw.Dispose();
-            headerBr.Dispose();
-
+            datBr.Dispose();
+            
             // Header cleanup
-            BinaryWriter headerBw = new BinaryWriter(File.Open(headerFile.FullName, FileMode.Open));
-            headerBw.BaseStream.SetLength(truncatePos);
             headerBw.BaseStream.Position = 0x14;
-            headerBw.Write(0);
-            headerBw.BaseStream.Position = 0xFC;
             headerBw.Write(0);
             headerBw.Dispose();
         }
