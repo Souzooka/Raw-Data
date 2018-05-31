@@ -19,8 +19,11 @@ namespace Raw_Data
 
         public static void Rebuild(string path, DatType archiveType = DatType.LargeRD)
         {
+            // Gather all relevant directory information
             FileInfo[] files = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories).Select(v => new FileInfo(v)).ToArray();
-            string[] fileNames = files.Select(v => v.FullName.Substring(path.Length + 1).Replace(Path.DirectorySeparatorChar, '\\')).ToArray();
+            byte[][] fileNames = files.Select(
+                v => Encoding.UTF8.GetBytes(v.FullName.Substring(path.Length + 1).Replace(Path.DirectorySeparatorChar, '\\') + '\u0000')
+                ).ToArray();
             int[] fileSizes = files.Select(v => (int)v.Length).ToArray();
             int[] fileLocations = new int[files.Length+1];
             fileLocations[0] = 0;
@@ -35,6 +38,9 @@ namespace Raw_Data
             string datName = new DirectoryInfo(Path.GetFileNameWithoutExtension(path)).Name + ".DAT";
             if (datName.StartsWith(Extractor.FolderSymbol.ToString())) { datName = datName.Substring(1); }
             string datLocation = Path.GetDirectoryName(path);
+
+            // rebuild header
+
 
         }
 
