@@ -94,6 +94,7 @@ namespace Raw_Data
                 FileLengths[i] = pFatBR.ReadInt32();
 
                 // Names
+                if (step == 0x10) { pFatBR.BaseStream.Position += 4; }
                 pFatBR.BaseStream.Position = pFatBR.ReadInt32();
 
                 // Read null-terminated string at this location
