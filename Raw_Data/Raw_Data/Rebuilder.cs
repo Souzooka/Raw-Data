@@ -40,8 +40,41 @@ namespace Raw_Data
             string datLocation = Path.GetDirectoryName(path);
 
             // rebuild header
+            BinaryWriter bw = new BinaryWriter(File.Open(Path.Combine(datLocation, datName), FileMode.Create));
+            bw.Write(Encoding.UTF8.GetBytes("FAT "));
+            bw.Write(fileCount);
+            bw.Write(0);
+            bw.Write(0);
+            bw.Write(0);
+            bw.Write((archiveType == DatType.LargeRD || archiveType == DatType.LargeGeneric ? 0x0 : 0x2));
+            for (; bw.BaseStream.Position < 0xF4; bw.Write(0)) { }
+            bw.Write(0x0100);
+            bw.Write(0x0100 + fileCount * (archiveType == DatType.LargeRD || archiveType == DatType.SmallRD ? 12 : 16));
+            bw.Write(0); // location to start of file data, 0xFC, will be written later
 
+            int stringPtr = 0x0100 + fileCount * (archiveType == DatType.LargeRD || archiveType == DatType.SmallRD ? 12 : 16);
+            for (int i = 0; i < fileCount; ++i)
+            {
+                bw.Write(fileLocations[i]);
+                bw.Write(fileSizes[i]);
+                bw.Write(stringPtr);
 
+                stringPtr += fileNames[i].Length;
+            }
+
+            foreach (byte[] str in fileNames)
+            {
+                foreach (byte chr in str)
+                {
+                    bw.Write(chr);
+                }
+            }
+            while (bw.BaseStream.Length % 0x10 != 0)
+            {
+                bw.Write((byte)0);
+            }
+
+            bw.Dispose();
         }
 
         public static void RecursiveRebuild(string path)
