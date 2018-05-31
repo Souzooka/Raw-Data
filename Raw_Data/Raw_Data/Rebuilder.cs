@@ -35,6 +35,7 @@ namespace Raw_Data
             }
 
             int fileCount = files.Length;
+            int dataOffset = 0;
             string datName = new DirectoryInfo(Path.GetFileNameWithoutExtension(path)).Name + ".DAT";
             if (datName.StartsWith(Extractor.FolderSymbol.ToString())) { datName = datName.Substring(1); }
             string datLocation = Path.GetDirectoryName(path);
@@ -58,6 +59,10 @@ namespace Raw_Data
                 bw.Write(fileLocations[i]);
                 bw.Write(fileSizes[i]);
                 bw.Write(stringPtr);
+                if (archiveType == DatType.LargeGeneric || archiveType == DatType.SmallGeneric)
+                {
+                    bw.Write(0);
+                }
 
                 stringPtr += fileNames[i].Length;
             }
@@ -72,6 +77,60 @@ namespace Raw_Data
             while (bw.BaseStream.Length % 0x10 != 0)
             {
                 bw.Write((byte)0);
+            }
+
+            // Write body
+            if (archiveType == DatType.SmallGeneric || archiveType == DatType.SmallRD)
+            {
+                dataOffset = (int)bw.BaseStream.Length;
+                bw.BaseStream.Position = 0xFC;
+                bw.Write(dataOffset);
+                bw.BaseStream.Position = bw.BaseStream.Length;
+            }
+            else
+            {
+                bw.Dispose();
+                
+                if (File.Exists(Path.Combine(datLocation, Path.GetFileNameWithoutExtension(datName) + ".FAT")))
+                {
+                    File.Delete(Path.Combine(datLocation, Path.GetFileNameWithoutExtension(datName) + ".FAT"));
+                }
+
+                File.Move(Path.Combine(datLocation, datName), Path.Combine(datLocation, Path.GetFileNameWithoutExtension(datName) + ".FAT"));
+
+                bw = new BinaryWriter(File.Open(Path.Combine(datLocation, datName), FileMode.Create));
+            }
+
+            for (int i = 0; i < files.Length; ++i)
+            {
+                byte[] buffer = new Byte[4096];
+                int bytesRead;
+                BinaryReader br = new BinaryReader(File.OpenRead(files[i].FullName));
+
+                // Variable which holds how much data is left to read for one file
+                int targetBytes = (int)br.BaseStream.Length;
+
+                // Extraction loop for 1 file
+                do
+                {
+                    // If we're about to read the rest of our data for our file, only read that. Otherwise read 1024 bytes.
+                    // Store the results in byte[] buffer
+                    int bytesToRead = Math.Min(4096, targetBytes);
+                    bytesRead = br.Read(buffer, 0, bytesToRead);
+
+                    // Decrement our target by the amount of data we read
+                    targetBytes -= bytesRead;
+
+                    // Write our read data to the new file
+                    bw.Write(buffer, 0, bytesRead);
+
+                    // If we're at the end of the file data, break the extraction loop
+                } while (bytesRead != 0);
+
+                while (bw.BaseStream.Length < fileLocations[i + 1] - dataOffset)
+                {
+                    bw.Write((byte)0);
+                }
             }
 
             bw.Dispose();
