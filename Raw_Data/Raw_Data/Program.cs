@@ -13,7 +13,7 @@ namespace Raw_Data
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
 
-            Rebuilder.Rebuild("C:\\Users\\Bazooka\\Desktop\\Raw Danger\\Raw Danger! Original - Copy\\@ROOT.DAT");
+            // Rebuilder.Rebuild("C:\\Users\\Bazooka\\Desktop\\Raw Danger\\Raw Danger! Original - Copy\\@ROOT.DAT");
         }
 	}
 }
