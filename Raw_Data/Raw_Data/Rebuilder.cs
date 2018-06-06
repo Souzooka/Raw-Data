@@ -67,12 +67,9 @@ namespace Raw_Data
                 stringPtr += fileNames[i].Length;
             }
 
-            foreach (byte[] str in fileNames)
+            foreach (byte chr in fileNames.SelectMany(v => v))
             {
-                foreach (byte chr in str)
-                {
-                    bw.Write(chr);
-                }
+                bw.Write(chr);
             }
             while (bw.BaseStream.Length % 0x10 != 0)
             {
@@ -154,50 +151,6 @@ namespace Raw_Data
             // *major* .DAT or a *minor* .DAT, that is to say minor .DATs have headers built into the files.
 
             // Practically, if possible we could treat everything but the master level as a minor .DAT
-        }
-
-        // Seperates .DAT into .DAT + .FAT
-        // Probably going to be hardcoded for ROOT.DAT/STR.DAT,
-        // all .DATs have headers included in them except for these
-        // and game fails to boot if they are
-        public static void SeparateHeader(FileInfo dataFile)
-        {
-            if (!Header.IsHeader(dataFile)) { throw new ArgumentException("File is not a header/does not contain a header."); }
-            FileInfo headerFile = new FileInfo(Path.Combine(dataFile.DirectoryName, Path.GetFileNameWithoutExtension(dataFile.Name) + ".FAT"));
-            
-            // get position of data
-            BinaryReader datBr = new BinaryReader(File.Open(dataFile.FullName, FileMode.Open));
-            datBr.BaseStream.Position = 0xFC;
-            int truncatePos = datBr.ReadInt32();
-            datBr.BaseStream.Position = 0x0;
-            
-            // Copy data over to new header file
-            BinaryWriter headerBw = new BinaryWriter(File.Open(headerFile.FullName, FileMode.Create));
-
-            byte[] buffer = new Byte[4096];
-            int bytesRead;
-
-            int targetBytes = truncatePos;
-            do
-            {
-                // Store the results in byte[] buffer
-                int bytesToRead = Math.Min(4096, targetBytes);
-                bytesRead = datBr.Read(buffer, 0, bytesToRead);
-
-                // Decrement our target by the amount of data we read
-                targetBytes -= bytesRead;
-
-                // Write our read data to the new file
-                headerBw.Write(buffer, 0, bytesRead);
-
-                // If we're at the end of the file data, break the extraction loop
-            } while (bytesRead != 0);
-            datBr.Dispose();
-            
-            // Header cleanup
-            headerBw.BaseStream.Position = 0x14;
-            headerBw.Write(0);
-            headerBw.Dispose();
         }
     }
 }
