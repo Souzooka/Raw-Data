@@ -71,10 +71,7 @@ namespace Raw_Data
             {
                 bw.Write(chr);
             }
-            while (bw.BaseStream.Length % 0x10 != 0)
-            {
-                bw.Write((byte)0);
-            }
+            if (bw.BaseStream.Length % 0x10 != 0) { bw.BaseStream.SetLength((bw.BaseStream.Length / 0x10 + 1) * 0x10); }
 
             // Write body
             if (archiveType == DatType.SmallGeneric || archiveType == DatType.SmallRD)
@@ -97,6 +94,7 @@ namespace Raw_Data
 
                 bw = new BinaryWriter(File.Open(Path.Combine(datLocation, datName), FileMode.Create));
             }
+            if (fileCount != 0) { bw.BaseStream.SetLength(dataOffset + fileLocations.Last()); }
 
             for (int i = 0; i < files.Length; ++i)
             {
@@ -124,10 +122,7 @@ namespace Raw_Data
                     // If we're at the end of the file data, break the extraction loop
                 } while (bytesRead != 0);
 
-                while (bw.BaseStream.Length < fileLocations[i + 1] - dataOffset)
-                {
-                    bw.Write((byte)0);
-                }
+                bw.BaseStream.Position = fileLocations[i + 1] + dataOffset;
             }
 
             bw.Dispose();
