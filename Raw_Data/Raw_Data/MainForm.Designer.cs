@@ -146,7 +146,7 @@
             this.btnOfdRebuild.Name = "btnOfdRebuild";
             this.btnOfdRebuild.Size = new System.Drawing.Size(133, 23);
             this.btnOfdRebuild.TabIndex = 9;
-            this.btnOfdRebuild.Text = "Open File in File Explorer";
+            this.btnOfdRebuild.Text = "Open Folder Dialog";
             this.btnOfdRebuild.UseVisualStyleBackColor = true;
             this.btnOfdRebuild.Click += new System.EventHandler(this.btnOfdRebuild_Click);
             // 
