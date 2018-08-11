@@ -20,12 +20,18 @@ namespace Raw_Data
             // File dialog setup
             openFileDialogFileExtract.InitialDirectory = Directory.GetCurrentDirectory();
             openFileDialogFileExtract.Filter = "IREM Data Archive (*.DAT)|*.DAT";
+            openFolderDialogRebuild = new FolderBrowserDialog();
         }
 
         private void textBoxFileExtract_TextChanged(object sender, EventArgs e)
         {
             btnExtract.Enabled = true;
             btnRecursiveExtract.Enabled = true;
+        }
+
+        private void textBoxFileRebuild_TextChanged(object sender, EventArgs e)
+        {
+            btnRebuild.Enabled = true;
         }
 
         private void btnExtract_Click(object sender, EventArgs e)
@@ -37,6 +43,16 @@ namespace Raw_Data
 
             btnExtract.Enabled = true;
             btnRecursiveExtract.Enabled = true;
+        }
+
+        private void btnRebuild_Click(object sender, EventArgs e)
+        {
+            btnRebuild.Enabled = false;
+            DatType archiveType = (DatType)(Convert.ToInt32(checkBoxRDHeader.Checked) + (Convert.ToInt32(checkBoxLargeDAT.Checked) << 1));
+
+            Rebuilder.Rebuild(textBoxFileRebuild.Text, archiveType);
+
+            btnRebuild.Enabled = true;
         }
 
         private void btnOfdExtract_Click(object sender, EventArgs e)
@@ -51,11 +67,12 @@ namespace Raw_Data
 
         private void btnOfdRebuild_Click(object sender, EventArgs e)
         {
-            DialogResult dr = openFileDialogFileExtract.ShowDialog();
+            openFolderDialogRebuild.SelectedPath = Directory.GetCurrentDirectory();
+            DialogResult dr = openFolderDialogRebuild.ShowDialog();
 
             if (dr == DialogResult.OK)
             {
-                textBoxFileRebuild.Text = openFileDialogFileExtract.FileName;
+                textBoxFileRebuild.Text = openFolderDialogRebuild.SelectedPath;
             }
         }
 

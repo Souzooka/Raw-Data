@@ -142,6 +142,7 @@ namespace Raw_Data
 
         public static bool IsHeader(FileInfo pFat)
         {
+            string[] notFAT = { "ROOT.DAT", "SE.DAT" };
             FileStream pFatFS = pFat.OpenRead();
             StreamReader pFatSR = new StreamReader(pFatFS, System.Text.Encoding.UTF8);
             string identifier;
@@ -152,7 +153,7 @@ namespace Raw_Data
             pFatSR.Close();
             pFatFS.Close();
 
-            return identifier == "FAT ";
+            return identifier == "FAT " && !notFAT.Contains(pFat.Name);
         }
 
         public static FileInfo FindHeader(FileInfo pFat)

@@ -7,15 +7,15 @@ using System.IO;
 
 namespace Raw_Data
 {
+    [Flags]
+    public enum DatType
+    {
+        Generic = 0b1,
+        External = 0b10,
+    }
+
     public static class Rebuilder
     {
-        [Flags]
-        public enum DatType
-        {
-            Generic = 0b1,
-            External = 0b10,
-        }
-
         public static void Rebuild(string path, DatType archiveType)
         {
             // Gather all relevant directory information
@@ -47,7 +47,7 @@ namespace Raw_Data
             bw.Write(0);
             bw.Write(0);
             bw.Write((int)(archiveType & DatType.External));
-            for (; bw.BaseStream.Position < 0xF4; bw.Write(0)) { }
+            bw.Seek(0xF4, SeekOrigin.Begin);
             bw.Write(0x0100);
             bw.Write(0x0100 + fileCount * ((archiveType & DatType.Generic) != 0 ? 12 : 16));
             bw.Write(0); // location to start of file data, 0xFC, will be written later
@@ -73,7 +73,7 @@ namespace Raw_Data
             if (bw.BaseStream.Length % 0x10 != 0) { bw.BaseStream.SetLength((bw.BaseStream.Length / 0x10 + 1) * 0x10); }
 
             // Write body
-            if ((archiveType & DatType.External) != 0)
+            if ((archiveType & DatType.External) == 0)
             {
                 dataOffset = (int)bw.BaseStream.Length;
                 bw.BaseStream.Position = 0xFC;

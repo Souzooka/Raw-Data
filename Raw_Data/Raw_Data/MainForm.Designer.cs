@@ -138,6 +138,7 @@
             this.textBoxFileRebuild.ReadOnly = true;
             this.textBoxFileRebuild.Size = new System.Drawing.Size(521, 20);
             this.textBoxFileRebuild.TabIndex = 8;
+            this.textBoxFileRebuild.TextChanged += new System.EventHandler(this.textBoxFileRebuild_TextChanged);
             // 
             // btnOfdRebuild
             // 
@@ -147,6 +148,7 @@
             this.btnOfdRebuild.TabIndex = 9;
             this.btnOfdRebuild.Text = "Open File in File Explorer";
             this.btnOfdRebuild.UseVisualStyleBackColor = true;
+            this.btnOfdRebuild.Click += new System.EventHandler(this.btnOfdRebuild_Click);
             // 
             // label4
             // 
@@ -166,6 +168,7 @@
             this.btnRebuild.TabIndex = 11;
             this.btnRebuild.Text = "Rebuild";
             this.btnRebuild.UseVisualStyleBackColor = true;
+            this.btnRebuild.Click += new System.EventHandler(this.btnRebuild_Click);
             // 
             // checkBoxLargeDAT
             // 
@@ -182,9 +185,9 @@
             this.checkBoxRDHeader.AutoSize = true;
             this.checkBoxRDHeader.Location = new System.Drawing.Point(499, 201);
             this.checkBoxRDHeader.Name = "checkBoxRDHeader";
-            this.checkBoxRDHeader.Size = new System.Drawing.Size(124, 17);
+            this.checkBoxRDHeader.Size = new System.Drawing.Size(119, 17);
             this.checkBoxRDHeader.TabIndex = 13;
-            this.checkBoxRDHeader.Text = "Use RD-style header";
+            this.checkBoxRDHeader.Text = "Use generic header";
             this.checkBoxRDHeader.UseVisualStyleBackColor = true;
             // 
             // MainForm
@@ -217,6 +220,7 @@
 
         private System.Windows.Forms.TextBox textBoxFileExtract;
         private System.Windows.Forms.OpenFileDialog openFileDialogFileExtract;
+        private System.Windows.Forms.FolderBrowserDialog openFolderDialogRebuild;
         private System.Windows.Forms.Button btnOfdExtract;
         private System.Windows.Forms.Button btnExtract;
         private System.Windows.Forms.Button btnRecursiveExtract;
