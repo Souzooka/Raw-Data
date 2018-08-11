@@ -49,6 +49,16 @@ namespace Raw_Data
             }
         }
 
+        private void btnOfdRebuild_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = openFileDialogFileExtract.ShowDialog();
+
+            if (dr == DialogResult.OK)
+            {
+                textBoxFileRebuild.Text = openFileDialogFileExtract.FileName;
+            }
+        }
+
         private void btnRecursiveExtract_Click(object sender, EventArgs e)
         {
             btnExtract.Enabled = false;

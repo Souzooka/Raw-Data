@@ -37,6 +37,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.textBoxFileRebuild = new System.Windows.Forms.TextBox();
+            this.btnOfdRebuild = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.btnRebuild = new System.Windows.Forms.Button();
+            this.checkBoxLargeDAT = new System.Windows.Forms.CheckBox();
+            this.checkBoxRDHeader = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBoxFileExtract
@@ -116,20 +122,82 @@
             // linkLabel1
             // 
             this.linkLabel1.AutoSize = true;
+            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(0, 31);
             this.linkLabel1.Location = new System.Drawing.Point(441, 60);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(162, 13);
             this.linkLabel1.TabIndex = 7;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "View the source code on Github!";
-            this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(0, this.linkLabel1.Text.Length);
             this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_Click);
+            // 
+            // textBoxFileRebuild
+            // 
+            this.textBoxFileRebuild.Location = new System.Drawing.Point(12, 161);
+            this.textBoxFileRebuild.Name = "textBoxFileRebuild";
+            this.textBoxFileRebuild.ReadOnly = true;
+            this.textBoxFileRebuild.Size = new System.Drawing.Size(521, 20);
+            this.textBoxFileRebuild.TabIndex = 8;
+            // 
+            // btnOfdRebuild
+            // 
+            this.btnOfdRebuild.Location = new System.Drawing.Point(12, 187);
+            this.btnOfdRebuild.Name = "btnOfdRebuild";
+            this.btnOfdRebuild.Size = new System.Drawing.Size(133, 23);
+            this.btnOfdRebuild.TabIndex = 9;
+            this.btnOfdRebuild.Text = "Open File in File Explorer";
+            this.btnOfdRebuild.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 145);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Rebuild:";
+            // 
+            // btnRebuild
+            // 
+            this.btnRebuild.Enabled = false;
+            this.btnRebuild.Location = new System.Drawing.Point(539, 158);
+            this.btnRebuild.Name = "btnRebuild";
+            this.btnRebuild.Size = new System.Drawing.Size(75, 23);
+            this.btnRebuild.TabIndex = 11;
+            this.btnRebuild.Text = "Rebuild";
+            this.btnRebuild.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxLargeDAT
+            // 
+            this.checkBoxLargeDAT.AutoSize = true;
+            this.checkBoxLargeDAT.Location = new System.Drawing.Point(499, 187);
+            this.checkBoxLargeDAT.Name = "checkBoxLargeDAT";
+            this.checkBoxLargeDAT.Size = new System.Drawing.Size(78, 17);
+            this.checkBoxLargeDAT.TabIndex = 12;
+            this.checkBoxLargeDAT.Text = "Large DAT";
+            this.checkBoxLargeDAT.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRDHeader
+            // 
+            this.checkBoxRDHeader.AutoSize = true;
+            this.checkBoxRDHeader.Location = new System.Drawing.Point(499, 201);
+            this.checkBoxRDHeader.Name = "checkBoxRDHeader";
+            this.checkBoxRDHeader.Size = new System.Drawing.Size(124, 17);
+            this.checkBoxRDHeader.TabIndex = 13;
+            this.checkBoxRDHeader.Text = "Use RD-style header";
+            this.checkBoxRDHeader.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 322);
+            this.ClientSize = new System.Drawing.Size(624, 230);
+            this.Controls.Add(this.checkBoxRDHeader);
+            this.Controls.Add(this.checkBoxLargeDAT);
+            this.Controls.Add(this.btnRebuild);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.btnOfdRebuild);
+            this.Controls.Add(this.textBoxFileRebuild);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -156,5 +224,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.TextBox textBoxFileRebuild;
+        private System.Windows.Forms.Button btnOfdRebuild;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button btnRebuild;
+        private System.Windows.Forms.CheckBox checkBoxLargeDAT;
+        private System.Windows.Forms.CheckBox checkBoxRDHeader;
     }
 }

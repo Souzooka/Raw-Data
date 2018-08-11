@@ -9,15 +9,14 @@ namespace Raw_Data
 {
     public static class Rebuilder
     {
+        [Flags]
         public enum DatType
         {
-            LargeGeneric,
-            SmallGeneric,
-            LargeRD,
-            SmallRD
+            Generic = 0b1,
+            External = 0b10,
         }
 
-        public static void Rebuild(string path, DatType archiveType = DatType.LargeRD)
+        public static void Rebuild(string path, DatType archiveType)
         {
             // Gather all relevant directory information
             FileInfo[] files = Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories).Select(v => new FileInfo(v)).ToArray();
@@ -28,10 +27,10 @@ namespace Raw_Data
             int[] fileLocations = new int[files.Length+1];
             fileLocations[0] = 0;
 
-            int flush = (archiveType == DatType.LargeRD || archiveType == DatType.LargeGeneric ? 0x800 : 0x10);
+            int alignment = ((archiveType | DatType.External) != 0 ? 0x800 : 0x10);
             for (int i = 1; i < fileLocations.Length; ++i)
             {
-                fileLocations[i] = fileLocations[i - 1] + fileSizes[i - 1] + (fileSizes[i - 1] % flush == 0 ? 0 : (flush - fileSizes[i - 1] % flush));
+                fileLocations[i] = fileLocations[i - 1] + fileSizes[i - 1] + (fileSizes[i - 1] % alignment == 0 ? 0 : (alignment - fileSizes[i - 1] % alignment));
             }
 
             int fileCount = files.Length;
@@ -47,19 +46,19 @@ namespace Raw_Data
             bw.Write(0);
             bw.Write(0);
             bw.Write(0);
-            bw.Write((archiveType == DatType.LargeRD || archiveType == DatType.LargeGeneric ? 0x0 : 0x2));
+            bw.Write((int)(archiveType & DatType.External));
             for (; bw.BaseStream.Position < 0xF4; bw.Write(0)) { }
             bw.Write(0x0100);
-            bw.Write(0x0100 + fileCount * (archiveType == DatType.LargeRD || archiveType == DatType.SmallRD ? 12 : 16));
+            bw.Write(0x0100 + fileCount * ((archiveType & DatType.Generic) != 0 ? 12 : 16));
             bw.Write(0); // location to start of file data, 0xFC, will be written later
 
-            int stringPtr = 0x0100 + fileCount * (archiveType == DatType.LargeRD || archiveType == DatType.SmallRD ? 12 : 16);
+            int stringPtr = 0x0100 + fileCount * ((archiveType & DatType.Generic) != 0 ? 12 : 16);
             for (int i = 0; i < fileCount; ++i)
             {
                 bw.Write(fileLocations[i]);
                 bw.Write(fileSizes[i]);
                 bw.Write(stringPtr);
-                if (archiveType == DatType.LargeGeneric || archiveType == DatType.SmallGeneric)
+                if ((archiveType & DatType.Generic) != 0)
                 {
                     bw.Write(0);
                 }
@@ -74,7 +73,7 @@ namespace Raw_Data
             if (bw.BaseStream.Length % 0x10 != 0) { bw.BaseStream.SetLength((bw.BaseStream.Length / 0x10 + 1) * 0x10); }
 
             // Write body
-            if (archiveType == DatType.SmallGeneric || archiveType == DatType.SmallRD)
+            if ((archiveType & DatType.External) != 0)
             {
                 dataOffset = (int)bw.BaseStream.Length;
                 bw.BaseStream.Position = 0xFC;
