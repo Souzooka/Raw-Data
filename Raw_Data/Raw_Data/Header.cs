@@ -142,7 +142,7 @@ namespace Raw_Data
 
         public static bool IsHeader(FileInfo pFat)
         {
-            string[] notFAT = { "ROOT.DAT", "SE.DAT" };
+            string[] notFAT = { "ROOT.DAT", "STR.DAT" };
             FileStream pFatFS = pFat.OpenRead();
             StreamReader pFatSR = new StreamReader(pFatFS, System.Text.Encoding.UTF8);
             string identifier;

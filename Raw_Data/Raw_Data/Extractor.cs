@@ -18,6 +18,7 @@ namespace Raw_Data
             // If invalid file or header missing, abort
             if (!Header.IsHeader(pathInfo) && !Header.FindHeader(pathInfo).Exists)
             {
+                // throw new ArgumentException("Extractor.Extract: Provided file is not a header file or header file does not exist.");
                 return;
             }
 

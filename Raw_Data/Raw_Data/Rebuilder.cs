@@ -46,13 +46,13 @@ namespace Raw_Data
             bw.Write(0);
             bw.Write(0);
             bw.Write(0);
-            bw.Write((int)(archiveType & DatType.External));
+            bw.Write((int)(archiveType & DatType.External) ^ 2);
             bw.Seek(0xF4, SeekOrigin.Begin);
             bw.Write(0x0100);
-            bw.Write(0x0100 + fileCount * ((archiveType & DatType.Generic) != 0 ? 12 : 16));
+            bw.Write(0x0100 + fileCount * ((archiveType & DatType.Generic) == 0 ? 12 : 16));
             bw.Write(0); // location to start of file data, 0xFC, will be written later
 
-            int stringPtr = 0x0100 + fileCount * ((archiveType & DatType.Generic) != 0 ? 12 : 16);
+            int stringPtr = 0x0100 + fileCount * ((archiveType & DatType.Generic) == 0 ? 12 : 16);
             for (int i = 0; i < fileCount; ++i)
             {
                 bw.Write(fileLocations[i]);
