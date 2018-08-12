@@ -1,6 +1,7 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raw_Data", "Raw_Data\Raw_Data.csproj", "{3EC333CF-4BB6-44BA-BDA2-9E2F5BC1597E}"
 EndProject
 Global
@@ -13,5 +14,11 @@ Global
 		{3EC333CF-4BB6-44BA-BDA2-9E2F5BC1597E}.Debug|x86.Build.0 = Debug|x86
 		{3EC333CF-4BB6-44BA-BDA2-9E2F5BC1597E}.Release|x86.ActiveCfg = Release|x86
 		{3EC333CF-4BB6-44BA-BDA2-9E2F5BC1597E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F8448CC6-281E-421F-B160-413DAE8F4F01}
 	EndGlobalSection
 EndGlobal
