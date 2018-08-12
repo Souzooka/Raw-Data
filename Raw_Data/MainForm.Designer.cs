@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.textBoxFileExtract = new System.Windows.Forms.TextBox();
             this.openFileDialogFileExtract = new System.Windows.Forms.OpenFileDialog();
             this.btnOfdExtract = new System.Windows.Forms.Button();
             this.btnExtract = new System.Windows.Forms.Button();
             this.btnRecursiveExtract = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.textBoxFileRebuild = new System.Windows.Forms.TextBox();
@@ -43,6 +43,8 @@
             this.btnRebuild = new System.Windows.Forms.Button();
             this.checkBoxLargeDAT = new System.Windows.Forms.CheckBox();
             this.checkBoxRDHeader = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxFileExtract
@@ -50,7 +52,7 @@
             this.textBoxFileExtract.Location = new System.Drawing.Point(12, 82);
             this.textBoxFileExtract.Name = "textBoxFileExtract";
             this.textBoxFileExtract.ReadOnly = true;
-            this.textBoxFileExtract.Size = new System.Drawing.Size(521, 20);
+            this.textBoxFileExtract.Size = new System.Drawing.Size(362, 20);
             this.textBoxFileExtract.TabIndex = 0;
             this.textBoxFileExtract.TextChanged += new System.EventHandler(this.textBoxFileExtract_TextChanged);
             // 
@@ -71,7 +73,7 @@
             // btnExtract
             // 
             this.btnExtract.Enabled = false;
-            this.btnExtract.Location = new System.Drawing.Point(539, 82);
+            this.btnExtract.Location = new System.Drawing.Point(380, 82);
             this.btnExtract.Name = "btnExtract";
             this.btnExtract.Size = new System.Drawing.Size(75, 23);
             this.btnExtract.TabIndex = 2;
@@ -82,7 +84,7 @@
             // btnRecursiveExtract
             // 
             this.btnRecursiveExtract.Enabled = false;
-            this.btnRecursiveExtract.Location = new System.Drawing.Point(510, 111);
+            this.btnRecursiveExtract.Location = new System.Drawing.Point(351, 111);
             this.btnRecursiveExtract.Name = "btnRecursiveExtract";
             this.btnRecursiveExtract.Size = new System.Drawing.Size(104, 23);
             this.btnRecursiveExtract.TabIndex = 3;
@@ -99,19 +101,10 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Extract:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "<Raw Data Graphic>";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(431, 8);
+            this.label3.Location = new System.Drawing.Point(272, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(183, 52);
             this.label3.TabIndex = 6;
@@ -123,7 +116,7 @@
             // 
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.LinkArea = new System.Windows.Forms.LinkArea(0, 31);
-            this.linkLabel1.Location = new System.Drawing.Point(441, 60);
+            this.linkLabel1.Location = new System.Drawing.Point(282, 60);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(162, 13);
             this.linkLabel1.TabIndex = 7;
@@ -136,7 +129,7 @@
             this.textBoxFileRebuild.Location = new System.Drawing.Point(12, 161);
             this.textBoxFileRebuild.Name = "textBoxFileRebuild";
             this.textBoxFileRebuild.ReadOnly = true;
-            this.textBoxFileRebuild.Size = new System.Drawing.Size(521, 20);
+            this.textBoxFileRebuild.Size = new System.Drawing.Size(362, 20);
             this.textBoxFileRebuild.TabIndex = 8;
             this.textBoxFileRebuild.TextChanged += new System.EventHandler(this.textBoxFileRebuild_TextChanged);
             // 
@@ -162,7 +155,7 @@
             // btnRebuild
             // 
             this.btnRebuild.Enabled = false;
-            this.btnRebuild.Location = new System.Drawing.Point(539, 158);
+            this.btnRebuild.Location = new System.Drawing.Point(380, 158);
             this.btnRebuild.Name = "btnRebuild";
             this.btnRebuild.Size = new System.Drawing.Size(75, 23);
             this.btnRebuild.TabIndex = 11;
@@ -173,7 +166,7 @@
             // checkBoxLargeDAT
             // 
             this.checkBoxLargeDAT.AutoSize = true;
-            this.checkBoxLargeDAT.Location = new System.Drawing.Point(499, 187);
+            this.checkBoxLargeDAT.Location = new System.Drawing.Point(351, 187);
             this.checkBoxLargeDAT.Name = "checkBoxLargeDAT";
             this.checkBoxLargeDAT.Size = new System.Drawing.Size(78, 17);
             this.checkBoxLargeDAT.TabIndex = 12;
@@ -183,18 +176,30 @@
             // checkBoxRDHeader
             // 
             this.checkBoxRDHeader.AutoSize = true;
-            this.checkBoxRDHeader.Location = new System.Drawing.Point(499, 201);
+            this.checkBoxRDHeader.Location = new System.Drawing.Point(351, 201);
             this.checkBoxRDHeader.Name = "checkBoxRDHeader";
             this.checkBoxRDHeader.Size = new System.Drawing.Size(119, 17);
             this.checkBoxRDHeader.TabIndex = 13;
             this.checkBoxRDHeader.Text = "Use generic header";
             this.checkBoxRDHeader.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 8);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(133, 55);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 230);
+            this.ClientSize = new System.Drawing.Size(467, 230);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkBoxRDHeader);
             this.Controls.Add(this.checkBoxLargeDAT);
             this.Controls.Add(this.btnRebuild);
@@ -203,14 +208,15 @@
             this.Controls.Add(this.textBoxFileRebuild);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRecursiveExtract);
             this.Controls.Add(this.btnExtract);
             this.Controls.Add(this.btnOfdExtract);
             this.Controls.Add(this.textBoxFileExtract);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "Raw Data";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,7 +231,6 @@
         private System.Windows.Forms.Button btnExtract;
         private System.Windows.Forms.Button btnRecursiveExtract;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.TextBox textBoxFileRebuild;
@@ -234,5 +239,6 @@
         private System.Windows.Forms.Button btnRebuild;
         private System.Windows.Forms.CheckBox checkBoxLargeDAT;
         private System.Windows.Forms.CheckBox checkBoxRDHeader;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
